@@ -1,0 +1,46 @@
+CREATE TABLE users_detail
+(
+  username character(100) NOT NULL,
+  password character(100) NOT NULL,
+  email character varying(100) NOT NULL,
+  mobileno character varying(100) NOT NULL,
+  timezone_id character varying(100),
+  "user_Id" integer NOT NULL DEFAULT nextval('"customers_detail_user_Id_seq"'::regclass),
+  lastlogin character varying(100),
+  CONSTRAINT customers_detail_pkey PRIMARY KEY ("user_Id"),
+  CONSTRAINT customers_detail_timezone_id_fkey FOREIGN KEY (timezone_id)
+      REFERENCES user_time (timezone_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE users_detail
+  OWNER TO postgres;
+
+  
+ CREATE TABLE user_time
+(
+  timezone_id character(20) NOT NULL,
+  timezone_name character varying(500),
+  name character varying(500),
+  CONSTRAINT customer_time_pkey PRIMARY KEY (timezone_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE user_time
+  OWNER TO postgres;
+ 
+ 
+ 
+ insert into users_detail values(?,?,?,?,?)
+ SELECT timezone_id,name FROM user_time
+ 
+ SELECT username, password FROM users_detail
+ 
+ SELECT lastlogin from users_detail where username=?
+ 
+ SELECT username,email FROM users_detail
+ UPDATE users_detail SET lastlogin=? where username=?
+ SELECT name FROM users_detail INNER JOIN user_time ON users_detail.timezone_id =user_time.timezone_id where username=?
