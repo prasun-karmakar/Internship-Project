@@ -31,6 +31,10 @@ public class UserServlet extends HttpServlet {
 		if (actionType.equals("login")) {
 			processLoginRequestParameter(request, response);
 		} 
+		else if (actionType.equals("Forgotpwd")) {
+			processForgotPwdRequestParameter(request, response);
+		}
+
 		else if (actionType.equals("register1")) {
 			processRegisterRequestParameter(request, response);
 		}
@@ -90,6 +94,13 @@ public class UserServlet extends HttpServlet {
 		}
 
 	}
+	
+	private void processForgotPwdRequestParameter(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/jsp/Forgot.jsp").forward(request, response);
+		
+	}
+
 
 	private void  ProcessUserRecordRequestParameter(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -121,7 +132,7 @@ public class UserServlet extends HttpServlet {
         if(validate) 
         {	
         request.setAttribute("messages",userDTO.getUsername());
-		response.sendRedirect("/WEB-INF/jsp/resetpassword.jsp");
+    	request.getRequestDispatcher("/WEB-INF/jsp/resetpassword.jsp").forward(request, response);
 		
         }
         else {
@@ -200,8 +211,7 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 	
 		    HttpSession session = request.getSession(false);
-	    	String name = (String) session.getAttribute("username");
-            session.removeAttribute(name);
+	    
 		    if (session != null) {
 		    	session.invalidate();
 		    }

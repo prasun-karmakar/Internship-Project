@@ -122,7 +122,7 @@ body {
 		<input id="username" name="username" type="hidden" value="${messages}">
 			<input type="password" name="password1" class="text_input" placeholder=" password "/> <br/> <br/>
 			<input type="password" name="password2" class="text_input" placeholder="Confirm Password "/><br/> <br/>
-<input type="button" class="font_style_form rounded_corner" value="Submit" onclick="return validate()" onkeydown="handleEnter(event)"> &nbsp; | &nbsp;<input type="button" class="font_style_form rounded_corner"  value="Cancel" onclick="window.location.href='login.jsp';"><br /><br />
+<input type="button" class="font_style_form rounded_corner" value="Submit" onclick="return validate()" onkeydown="handleEnter(e)"> &nbsp; | &nbsp;<input type="button" class="font_style_form rounded_corner"  value="Cancel" onclick="window.location.href='login.jsp';"><br /><br />
 		</div>
 </form>
 </body>

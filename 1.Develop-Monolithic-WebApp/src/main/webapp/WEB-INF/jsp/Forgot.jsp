@@ -31,7 +31,7 @@ function handleEnter(e) {
 	      compare()
 	  }
 
-
+}
 </script>
 <style>
 
