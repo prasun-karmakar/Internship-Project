@@ -58,9 +58,7 @@ function handleEnter(e) {
 	  }
 	}
 
-function cancel(){
-	
-}
+
 </script>
 <style>
 html { 
@@ -172,7 +170,8 @@ a:active {
   <div class="signup_container" id="signup_div_id"> 
   
 			
-	<form name="form" action='loginRegister?actionType=register2' method="post">
+	<form name="form" action='loginRegister' method="post" onsubmit="return validate()">
+	<input type="hidden" name="actionType" id="actionType_id" value="register2">
 	
 	  <img src="Signify_3.png" alt="Signify_logo" style="width: 100%; height: 145px; padding-bottom: 10px;"/> <br/>
 	<h3> New User Registration: </h3>
@@ -194,7 +193,7 @@ a:active {
         <option value="<%=timezone_id %>"><%=name%></option>
           <%}%>   
 </select></div> <br/> <br/>
-<input type="button" value="Submit" onclick="return validate()" class="font_style_form rounded_corner" onkeydown="handleEnter(event)"> &nbsp; | &nbsp;<input type="button" value="Cancel" class="font_style_form rounded_corner" onclick="window.location.href='login.jsp ';">
+<button name="submit" class="font_style_form rounded_corner" onkeydown="handleEnter(event)">Submit</button> &nbsp;| &nbsp;<input type="button" value ="Cancel" class="font_style_form rounded_corner" onclick="window.location.href='login.jsp'"> <br/> <br/>
 </form>
 </div>	
 </body>

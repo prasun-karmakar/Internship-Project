@@ -26,12 +26,12 @@ function validate()
  document.forms["form"].submit();
 
 }
+
 function handleEnter(e) {
 	  if(e.keyCode === 13){
 	      compare()
 	  }
-
-}
+	}
 </script>
 <style>
 
@@ -113,7 +113,8 @@ body {
 </head>
 <body>
 
-<form name="form" action="loginRegister?actionType=forgot" method="post">
+<form name="form" action="loginRegister" method="post" onsubmit="return validate()">
+<input type="hidden" name="actionType" id="actionType_id" value="forgot">
 
 <div class="error_div_container">
 	<h3 style="color:red;">${message}</h3>
@@ -122,8 +123,9 @@ body {
 			<img src="Signify_3.png" alt="Signify_logo" style="width: 100%; height: 145px; padding-bottom: 10px;"/> <br/>
 			<h3> Forgot Password :</h3>
 			<input type="text" name="username" class="text_input" placeholder=" UserName "/> <br/> <br/>
-			<input type="text" name="email" class="text_input" placeholder=" Email "/><br/> <br/>	
-<input type="button" class="font_style_form rounded_corner" value="Submit" onclick="return validate()" onkeydown="handleEnter(event)"> &nbsp; | &nbsp;<input type="button" class="font_style_form rounded_corner"  value="Cancel" onclick="window.location.href='login.jsp';"><br /><br />
+			<input type="text" name="email" class="text_input" placeholder=" Email "/><br/> <br/>
+			 	<button name="submit" class="font_style_form rounded_corner" onkeydown="handleEnter(event)">Submit</button> &nbsp;| &nbsp;<input type="button" value ="Cancel" class="font_style_form rounded_corner" onclick="window.location.href='login.jsp'"> <br/> <br/>
+
 </div>
 </form>
 </body>
