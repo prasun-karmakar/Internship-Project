@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Map;
-
 import com.signify.internship.project.dao.UserDAO;
 import com.signify.internship.project.daoimpl.UserDAOImpl;
 import com.signify.internship.project.dto.UserDTO;
@@ -72,7 +71,7 @@ public Map<Integer, String> getTimezoneDropdownValues(UserDTO userDTO) {
 		return results;
 	}
 catch(Exception e) {
-	System.out.println(e);
+	System.out.println(e); 
 }
 	return null;
 }
@@ -149,6 +148,22 @@ public boolean getForgotPasswordRequest(UserDTO userDTO) {
 	
 }
 
+public UserDTO getUserProfileDetail(UserDTO userDTO){
+	try {
+		UserDAO userDAO=new UserDAOImpl();
+		
+		UserDTO res=userDAO.fetchUserProfileDetail(userDTO);
+		userDTO.setRes(res);
+	    return res;	
+		
+	}
+	catch(Exception e) {
+		System.out.println(e);
+	}
+	return null;
+	
+}
+
 public ArrayList<UserDTO> getUserDetails(UserDTO userDTO) {
 	try {
 		UserDAO userDAO =new UserDAOImpl();
@@ -174,6 +189,37 @@ public String insertUserDetails(UserDTO userDTO) {
 		}
 		return "invalid";
 	}
+
+
+public ArrayList<UserDTO> getUserList(UserDTO userDTO) {
+	// TODO Auto-generated method stub
+	try {
+		UserDAO userDAO=new UserDAOImpl();
+		ArrayList<UserDTO> info=userDAO.fetchUserList(userDTO);
+		userDTO.setInfo(info);
+		return info;
+	}
+	catch(Exception e) {
+		System.out.println(e);
+	}
+	return null;
+}
+
+
+public UserDTO getUpdateUsers(UserDTO userDTO) {
+	// TODO Auto-generated method stub
+	try {
+		UserDAO userDAO=new UserDAOImpl();
+		UserDTO res=userDAO.fetchUserUpdateProfileDetail(userDTO);
+		userDTO.setRes(res);
+	    return res;
+	}
+	catch(Exception e) {
+		System.out.println(e);
+	}
+	return null;
+	
+}
 }
 
 

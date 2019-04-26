@@ -11,6 +11,8 @@ import com.signify.internship.project.dao.UserDAO;
 import com.signify.internship.project.db.DBManager;
 import com.signify.internship.project.dto.UserDTO;
 
+
+
 public class UserDAOImpl implements UserDAO {
 	static Connection con = null;
 	static PreparedStatement ps = null;
@@ -32,6 +34,35 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return status;
 	}
+	
+	public ArrayList<UserDTO> fetchUserList(UserDTO userDTO)
+	{   
+		UserDTO userDTOResult=null;
+		ArrayList<UserDTO> UserRecords=new ArrayList<>();
+	  	try{
+			con=DBManager.getCon();
+			ps=con.prepareStatement("SELECT username,email,mobileno,lastlogin FROM users_detail");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+				{
+				userDTOResult=new UserDTO();
+					 
+					 userDTOResult.setUsername(rs.getString("username"));
+				     userDTOResult.setEmail(rs.getString("email"));
+				     userDTOResult.setMobileno(rs.getString("mobileno"));
+				     userDTOResult.setTimezone_id(rs.getString("lastlogin"));
+				     UserRecords.add(userDTOResult);
+				     userDTOResult.setUserRec(UserRecords);
+			     }
+			con.close();
+			}
+			catch(Exception e)
+			{
+			System.out.println(e);
+			}
+			return UserRecords;
+			}
+
 	
 	public ArrayList<UserDTO> userDetails(UserDTO userDTO)
 	{   
@@ -60,6 +91,62 @@ public class UserDAOImpl implements UserDAO {
 			}
 			return UserRec;
 			}
+	
+	public UserDTO fetchUserUpdateProfileDetail(UserDTO userDTO) {
+		UserDTO userDTOResult=null;
+		try {
+			con=DBManager.getCon();
+			ps=con.prepareStatement("SELECT username,password,email,mobileno,lastlogin FROM users_detail where username=?");
+			ps.setString(1, userDTO.getUsername());
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				userDTOResult=new UserDTO();
+				userDTOResult.setUsername(rs.getString("username").trim());
+				userDTOResult.setPassword(rs.getString("password"));
+			    userDTOResult.setEmail(rs.getString("email"));
+			    userDTOResult.setMobileno(rs.getString("mobileno"));
+	            userDTOResult.setLastlogin(rs.getString("lastlogin"));
+	        }
+			
+		
+		con.close();
+	}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return userDTOResult;
+		
+	}
+	
+	public UserDTO fetchUserProfileDetail(UserDTO userDTO) {
+		UserDTO userDTOResult=null;
+	try {
+		con=DBManager.getCon();
+		
+
+		ps=con.prepareStatement("SELECT username,email,mobileno,lastlogin FROM users_detail where username=?");
+		ps.setString(1, userDTO.getUsername());
+		
+      ResultSet rs=ps.executeQuery();
+		while(rs.next())
+		{
+			userDTOResult=new UserDTO();
+			userDTOResult.setUsername(rs.getString("username").trim());
+		    userDTOResult.setEmail(rs.getString("email"));
+		    userDTOResult.setMobileno(rs.getString("mobileno"));
+            userDTOResult.setLastlogin(rs.getString("lastlogin"));
+        }
+		con.close();
+		
+	}
+	catch(Exception e){
+		System.out.println(e);
+		
+	}
+	return userDTOResult;
+	
+}
 
 	public Map<Integer, String> getTimezoneid_name(UserDTO userDTO) {
 
@@ -85,9 +172,7 @@ public class UserDAOImpl implements UserDAO {
 	public UserDTO getUserDetails(UserDTO userDTO) {
 
 		UserDTO userDTOResult=null;
-		
 		try {
-
 			con = DBManager.getCon();
 			ps = con.prepareStatement("SELECT username,password from users_detail where username=? and password=?");
 			ps.setString(1, userDTO.getUsername());
@@ -123,7 +208,7 @@ public class UserDAOImpl implements UserDAO {
 
 			}
 
-			con.close();
+			con.close(); 
 		} catch (Exception e) {
 			System.out.println(e);
 		}

@@ -20,8 +20,23 @@ public class UserDTO
 	ArrayList<UserDTO> userRec;
 	public String user_Id;
 	public ArrayList<UserDTO> result;
+	public ArrayList<UserDTO> getUserslist() {
+		return userslist;
+	}
+	public void setUserslist(ArrayList<UserDTO> userslist) {
+		this.userslist = userslist;
+	}
+	public UserDTO res;
+	public ArrayList<UserDTO> info;
+	public ArrayList<UserDTO> userslist;
 	
 
+	public ArrayList<UserDTO> getInfo() {
+		return info;
+	}
+	public void setInfo(ArrayList<UserDTO> info) {
+		this.info = info;
+	}
 	public ArrayList<UserDTO> getResult() {
 		return result;
 	}
@@ -129,7 +144,19 @@ public class UserDTO
 	public String getPassword1() {
 		return password1;
 	}
+	public UserDTO getRes() {
+		return res;
+	}
+	public void setRes(UserDTO res) {
+		this.res = res;
+	}
+	public void LoadXml(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+		
+	}
 	
 	
-	
-}
+

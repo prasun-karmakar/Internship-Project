@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@page import="java.util.ArrayList" %>
+  <%@page import="java.util.ArrayList" %>
     
 
     <%@page import = "com.signify.internship.project.controller.UserServlet" %>
@@ -15,11 +15,11 @@
 		<title>Home Page</title>
 		<link rel="icon" href="Signify_2.png" type="image/png">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+		
 		<script>
 	
 		
-		function pageLoad()
-{
+		function pageLoad(){
 			var result = <%=(ArrayList)request.getAttribute("result")%>;
 			if(null!=result)
 			{
@@ -31,10 +31,221 @@
 				sampleDiv.style.display = 'none';
 				}
 }
+		
+					
+
+		function getUserProfileDetail() {
+		    // 1. Instantiate XHR - Start 
+
+		    var xhr; 
+		    if (window.XMLHttpRequest) 
+		        xhr = new XMLHttpRequest(); 
+		    else if (window.ActiveXObject) 
+		        xhr = new ActiveXObject("Msxml2.XMLHTTP");
+		    else 
+		        throw new Error("Ajax is not supported by your browser");
+		    // Instantiate XHR 
+		    
+		    // Handle Response from Server 
+
+		    xhr.onreadystatechange = function () {     
+		            if (xhr.readyState == 4 && xhr.status==200)
+		            {
+		            	var xmlDoc = xhr.responseXML; 
+		            	var i;
+		                if(null!=xmlDoc){
+		    				document.getElementById("ajaxFunc").style.display = "block";
+
+		    				var table="<tr><th>UserID</th><th>Mobileno</th><th>lastlogin</th><th>email</th></tr><br />";
+		    				var x= xmlDoc.getElementsByTagName("User");
+		    				for(i=0;i<x.length;i++){
+		    					table+="<tr><td>"+x[i].getElementsByTagName("UserID")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("Mobileno")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("lastlogin")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("email")[0].childNodes[0].nodeValue+"</td></tr>";
+		    					document.getElementById('ajaxFunc').innerHTML=table;
+		    				}
+		    				
+			                
+		                }
+		    				
+		    				
+		           else{
+		    				
+		    				document.getElementById("ajaxFunc").style.display = "none";
+
+		    			}
+
+		              } 
+		        }
+		    
+		   
+		    xhr.open("POST", "loginRegister", true);
+		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.send("actionType=myProfile");
+		    
+		}
+		
+		function getUserList() {
+		    // 1. Instantiate XHR - Start 
+
+		    var xhr; 
+		    if (window.XMLHttpRequest) 
+		        xhr = new XMLHttpRequest(); 
+		    else if (window.ActiveXObject) 
+		        xhr = new ActiveXObject("Msxml2.XMLHTTP");
+		    else 
+		        throw new Error("Ajax is not supported by your browser");
+		    // Instantiate XHR 
+		    
+		    // Handle Response from Server 
+
+		    xhr.onreadystatechange = function () {     
+		            if (xhr.readyState == 4 && xhr.status==200)
+		            {   
+		            	
+		            	var response = JSON.parse(xhr.responseText);
+		            	
+		            	if(null!=response)
+		            	{
+		            		
+		    				document.getElementById("jsonFunc").style.display = "block";
+
+		            		var table="<tr><th>UserID</th><th>UserLinks</th></tr>"
+		            		for(var i=0;i<response.length;i++){
+		            		    
+		            		    table+="<tr><td>"+response[i].Username+"</td><td>"+"<a href='#' onclick='updateUsersDetail(\""+response[i].Username+"\")'>edit</a>"+"</td></tr>";
+		            		    document.getElementById("jsonFunc").innerHTML=table;
+
+		            		}
+		            }	
+		            		
+		            	   
+		          
+		    				
+		    		else{
+		    				
+	    				document.getElementById("jsonFunc").style.display = "none";
+		    			}
+
+		             } 
+		    }
+		        
+		    
+		   
+		    xhr.open("POST", "loginRegister", true);
+		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.send("actionType=editUserProfile");
+		    
+		}
+		
+		function updateUsersDetail(username) {
+			document.getElementById("jsonFunc").style.display = 'none';
+			   var xhr,username; 
+			   
+			    if (window.XMLHttpRequest) 
+			        xhr = new XMLHttpRequest(); 
+			    else if (window.ActiveXObject) 
+			        xhr = new ActiveXObject("Msxml2.XMLHTTP");
+			    else 
+			        throw new Error("Ajax is not supported by your browser");
+			    // Instantiate XHR 
+			    
+			    // Handle Response from Server 
+
+			    xhr.onreadystatechange = function () {     
+			            if (xhr.readyState == 4 && xhr.status==200)
+			            {   
+			            	
+			            	var response = JSON.parse(xhr.responseText);
+			            	
+			            	if(null!=response)
+			            	{
+			        			editUser.style.display = 'block';
+
+			            		sampleDiv.style.display="none";
+			            		
+			            		
+			            		var table="<tr><th>UserID</th><th>Email</th><th>Password</th><th>Mobileno</th></tr>";
+			            		for(var i=0;i<response.length;i++){
+			            		
+			            		    table+="<tr><td>"+response[i].Username+"</td><td>"+response[i].Email+"</td><td>"+response[i].Password+"</td><td>"+response[i].Mobileno+"</td></tr>";
+			            		    document.getElementById("editUser").innerHTML=table;
+
+			            		}
+			            		
+			            }	
+			            		
+			            	   
+			          
+			    				
+			    		else{
+		        			document.getElementById("editUser").style.display = 'none';
+
+			    				
+			    			}
+
+
+			            	
+			            	
+			             } 
+			    }
+			    
+			        
+			    xhr.open("POST", "loginRegister", true);
+			    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhr.send("actionType=updateRecords&Username="+username+"");
+			    
+			   
+			    /*xhr.open("POST", "loginRegister&actionType=updateRecords&Username="+username+"", true);
+				xhr.send();*/
+			    
+			}
+
+			 
+			
+		
+		
+
+
+
+		/*var xhr; 
+	    if (window.XMLHttpRequest) 
+	        xhr = new XMLHttpRequest(); 
+	    else if (window.ActiveXObject) 
+	        xhr = new ActiveXObject("Msxml2.XMLHTTP");
+	    else 
+	        throw new Error("Ajax is not supported by your browser");
+	    // Instantiate XHR 
+	    
+	    // Handle Response from Server 
+
+	    xhr.onreadystatechange = function () {     
+	            if (xhr.readyState == 4 && xhr.status==200)
+	            {   
+	            	
+	            	var response = JSON.parse(xhr.responseText);
+	            	
+	            	if(null!=response)
+	            	{
+	            		alert("");
+	            	}
+	            	else{
+	    				
+	    				alert("");
+	    			
+
+	             } 
+	    }
+	        
+	    }  
+	   
+	    xhr.open("POST", "loginRegister?actionType=updateRecords", true);
+		xhr.send();*/
+	    
+	
+	
 </script>
 		<style>
 		
-		table {
+table {
     margin: 0 auto; /* or margin: 0 auto 0 auto */
   }
 
@@ -115,14 +326,51 @@
 		font: 17px Montserrat, sans-serif;
 		
 		}
-		#sampleDiv{
-		display:'none';
+		#updateList{
+		display:"none";
 	     width: 100%;
-         padding: 50px 0;
          text-align: center;
-         margin-top: 20px;
+         margin-top: 1px;
 		
 		}
+		
+		#sampleDiv{
+		display: "none";
+	     width: 100%;
+         text-align: center;
+         margin-top: 1px;
+		
+		}
+		
+		table#ajaxFunc{
+		margin-top: 20px;
+		display:"none";
+	    width: 50%;
+        padding: 50px 0;
+        margin: 0 auto;
+		text-align: center;
+  		border-collapse: collapse;
+		}
+		table#editUser{
+		margin-top: 20px;
+		display:"none";
+	    width: 50%;
+        padding: 50px 0;
+        margin: 0 auto;
+		text-align: center;
+  		border-collapse: collapse;
+		}
+		
+		
+		th,td {
+		display:"none";
+		border : 1px solid black;
+		margin: 0 auto;
+  		text-align: center;
+  		border-collapse: collapse;
+		padding: 5px;
+		}
+		
 
 		img {	
 			width: 100%;
@@ -151,12 +399,12 @@
   border-color: #792700;
  
 }
-		
-		
-		</style>
+			
+</style>
 	</head>
 
 	<body onload="pageLoad()">
+	
 		
 		<div class="container-fluid"> <!-- Parent Container -->
 			<div class=""> <!-- Parent Row container -->
@@ -174,9 +422,9 @@
 								<ul class="">
 									
 									<li class="active"><a href="loginRegister?actionType=list_UserRecords" style="text-decoration:none">Registered Users</a></li> 
-									<li class="active"><a href="#section1" style="text-decoration:none">MyProfile</a></li> 
+									<li class="active"><a href="#section1" onclick="getUserProfileDetail()" style="text-decoration:none">MyProfile</a></li> 
 									<li><a href="#section2" style="text-decoration:none">Add New User</a></li> 
-									<li><a href="#section3" style="text-decoration:none">Edit User Profile</a></li>
+									<li class="active"><a href="#section3" onclick="getUserList()" style="text-decoration:none">Edit User Profile</a></li> 
 									<li><a href="#section3" style="text-decoration:none">Remove User</a></li> 
 									<li><a href="changepassword.jsp" style="text-decoration:none">Change Password</a></li>
 									<li><a href="loginRegister?actionType=logout" style="text-decoration:none">Logout</a></li>
@@ -185,7 +433,7 @@
 						</div>		
 					</div>	
 				</div>
-				
+			
 				<div class="page"> <!-- Column Div (Right Side Nav) --> 
 					<div class="page_header"> <!-- Row within column div --> <!-- Right side top container -->
 						<div class=""> <!-- column within row div -->
@@ -198,16 +446,16 @@
 					</div>
 					
 					<div class="page_body"> <!-- Row within column div --> <!-- Right side body container -->
-					
+				
 						<div id="sampleDiv" >
 							
 								<input id="username" name="username" type="hidden" value="${messages}">
 								<table class="table table-striped" width="70%">
 								<thead class="thead-light">
 								<tr>
-								<th>Username</th><br />
+								<th>UserName</th><br />
 								<th>Email</th><br />
-								<th>Mobileno</th><br />
+								<th>MobileNo</th><br />
 								<th>Timezone_id</th>
 								</tr>
 								</thead>
@@ -222,19 +470,35 @@
 											<td><%=userDTO.getEmail() %></td>
 											<td><%=userDTO.getMobileno() %></td>
 											<td><%=userDTO.getTimezone_id() %></td>
-											</td>
+											
 										</tr>
-									</tr>
-								    <%}%>
+									
+								    <%}%> 
 								    <%} %>
 				    			</tbody>
 				    		</table>
 					</div>
+					
+					<table id="jsonFunc">
+					
+					</table>
+					
+					<table id="ajaxFunc">
+							
+					</table>
+					<table id="editUser">
+					
+					</table>
+					
+		
+		
+					</div>
+				
 				</div>
 				
 			</div>
 		</div>
-		</div>
+		
 
 	</body>
 </html>
