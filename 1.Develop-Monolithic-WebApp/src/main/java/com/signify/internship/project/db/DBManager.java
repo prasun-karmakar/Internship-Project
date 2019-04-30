@@ -16,13 +16,17 @@ import com.signify.internship.project.db.DBManager;
 	public static Connection getCon(){
 	try{
 		PropertyManager property=PropertyManager.INSTANCE;
-		username=property.getValue("username");
-		pwd=property.getValue("password");
-		connURL=property.getValue("connURL");
-		dname=property.getValue("dname");
-		
+		Values val=Values.USERNAME;
+		username=property.getValue(val.getValue());
+		Values val1=Values.PASSWORD;
+		pwd=property.getValue(val1.getValue());
+		Values val2=Values.CONNURL;
+		connURL=property.getValue(val2.getValue());
+		Values val3=Values.DNAME;
+		dname=property.getValue(val3.getValue());
 		Class.forName(dname);
 		con=DriverManager.getConnection(connURL,username,pwd);
+	
 	}
 	catch(Exception e)
 	{

@@ -11,7 +11,8 @@ public enum PropertyManager {
     private PropertyManager(){
     	try {
         properties = new Properties();
-        properties.load(this.getClass().getClassLoader().getResourceAsStream("config.properties"));
+        File file=File.ConfigFile;
+        properties.load(this.getClass().getClassLoader().getResourceAsStream(file.getValue()));
     	}
     	catch (Exception e) {
             throw new RuntimeException("Error when loading configuration file", e);
