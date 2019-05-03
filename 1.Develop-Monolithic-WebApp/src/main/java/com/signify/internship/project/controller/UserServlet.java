@@ -37,7 +37,7 @@ public class UserServlet extends HttpServlet {
 			processForgotPwdRequestParameter(request, response);
 		}
 
-		else if (actionType.equals("register1")) {
+		else if (actionType.equals("newregister")) {//newRegistraionReq
 			processRegisterRequestParameter(request, response);
 		}
 		else if (actionType.equals("register2")) {
@@ -255,6 +255,17 @@ public class UserServlet extends HttpServlet {
 		
 	}
 
+	/*private void processRegister1RequestParameter(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	
+		UserDTO userDTO = new UserDTO();
+		UserService userService=new UserService();
+		Map<Integer,String> res1 = userService.getLanguageDropdownValues(userDTO);
+		request.setAttribute("resu", res1);
+		request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
+
+	}*/
+
 
 	private void processRegisterRequestParameter(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -262,6 +273,8 @@ public class UserServlet extends HttpServlet {
 		UserDTO userDTO = new UserDTO();
 		UserService userService=new UserService();
 		Map<Integer,String> results = userService.getTimezoneDropdownValues(userDTO);
+		Map<Integer,String> res1 = userService.getLanguageDropdownValues(userDTO);
+		request.setAttribute("resu", res1);
 		request.setAttribute("results", results);
 		request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
 

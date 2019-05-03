@@ -29,7 +29,7 @@ ALTER TABLE users_detail
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE user_time
+ALTER TABLE user_timel
   OWNER TO postgres;
  
  
@@ -44,3 +44,11 @@ ALTER TABLE user_time
  SELECT username,email FROM users_detail
  UPDATE users_detail SET lastlogin=? where username=?
  SELECT name FROM users_detail INNER JOIN user_time ON users_detail.timezone_id =user_time.timezone_id where username=?
+ 
+ ALTER TABLE users_detail ADD COLUMN lang_id INTEGER;
+ 
+ ALTER TABLE users_detail ADD FOREIGN KEY (lang_id) REFERENCES user_language(language_id);
+    
+  ALTER TABLE user_language ADD COLUMN language_id SERIAL PRIMARY KEY;
+    
+ 

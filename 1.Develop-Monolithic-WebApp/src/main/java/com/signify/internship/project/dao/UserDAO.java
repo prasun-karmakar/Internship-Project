@@ -23,6 +23,7 @@ public interface UserDAO
 	public UserDTO fetchUserProfileDetail(UserDTO userDTO);
 	public ArrayList<UserDTO> fetchUserList(UserDTO userDTO);
 	public UserDTO fetchUserUpdateProfileDetail(UserDTO userDTO);
+	public Map<Integer,String> getLanguageid_name(UserDTO userDTO);
 	
 }
 	

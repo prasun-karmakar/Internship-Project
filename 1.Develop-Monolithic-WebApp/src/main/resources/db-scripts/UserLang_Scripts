@@ -1,0 +1,43 @@
+ALTER TABLE users_detail ADD COLUMN lang_id INTEGER;
+ 
+ ALTER TABLE users_detail ADD FOREIGN KEY (lang_id) REFERENCES user_language(language_id);
+    
+ ALTER TABLE user_language ADD COLUMN language_id SERIAL PRIMARY KEY;
+ 
+ 
+CREATE TABLE user_language
+(
+  language_name character varying(500),
+  language_desc character varying(500),
+  language_id serial NOT NULL,
+  CONSTRAINT user_language_pkey PRIMARY KEY (language_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE user_language
+  OWNER TO postgres;
+
+CREATE TABLE users_detail
+(
+  username character(100) NOT NULL,
+  password character(100) NOT NULL,
+  email character varying(100) NOT NULL,
+  mobileno character varying(100) NOT NULL,
+  timezone_id character varying(100),
+  "user_Id" integer NOT NULL DEFAULT nextval('"customers_detail_user_Id_seq"'::regclass),
+  lastlogin character varying(100),
+  lang_id integer,
+  CONSTRAINT customers_detail_pkey PRIMARY KEY ("user_Id"),
+  CONSTRAINT customers_detail_timezone_id_fkey FOREIGN KEY (timezone_id)
+      REFERENCES user_time (timezone_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE users_detail
+  OWNER TO postgres;
+
+ALTER TABLE users_detail ADD FOREIGN KEY (lang_id) REFERENCES user_language(language_id);
+ 

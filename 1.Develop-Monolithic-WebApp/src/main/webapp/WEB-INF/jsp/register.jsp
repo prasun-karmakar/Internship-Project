@@ -6,6 +6,7 @@
 <%@ page import="com.signify.internship.project.controller.UserServlet" %>
 <%@ page import="com.signify.internship.project.dto.UserDTO" %>
 <% Map<Integer,String> results=(HashMap<Integer,String>)request.getAttribute("results");%>
+<% Map<Integer,String> res=(HashMap<Integer,String>)request.getAttribute("resu");%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -191,6 +192,14 @@ a:active {
          Integer timezone_id=entry.getKey();
           String name=entry.getValue();%>
         <option value="<%=timezone_id %>"><%=name%></option>
+          <%}%>   
+</select></div> <br/> <br/>
+<div style="height: 40px;">
+		<select id="language_id" name="language_id" style="width:70%" >
+         <% for(Map.Entry<Integer, String> entry: res.entrySet()) {
+         Integer language_id=entry.getKey();
+          String language_name=entry.getValue();%>
+        <option value="<%=language_id %>"><%=language_name%></option>
           <%}%>   
 </select></div> <br/> <br/>
 <button name="submit" class="font_style_form rounded_corner" onkeydown="handleEnter(event)">Submit</button> &nbsp;| &nbsp;<input type="button" value ="Cancel" class="font_style_form rounded_corner" onclick="window.location.href='login.jsp'"> <br/> <br/>

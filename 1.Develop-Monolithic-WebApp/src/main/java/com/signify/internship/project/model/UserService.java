@@ -62,6 +62,20 @@ public String getTimezoneData(UserDTO userDTO) {
 return "invalid";
 }
 
+public Map<Integer, String> getLanguageDropdownValues(UserDTO userDTO) {
+	try {
+		UserDAO userDAO =new UserDAOImpl();
+		Map<Integer,String> res1=userDAO.getLanguageid_name(userDTO);
+		userDTO.setResults(res1);
+		return res1;
+	}
+catch(Exception e) {
+	System.out.println(e); 
+}
+	return null;
+}
+
+
 
 public Map<Integer, String> getTimezoneDropdownValues(UserDTO userDTO) {
 	try {

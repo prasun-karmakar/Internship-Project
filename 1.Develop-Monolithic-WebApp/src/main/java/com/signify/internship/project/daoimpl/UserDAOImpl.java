@@ -147,6 +147,28 @@ public class UserDAOImpl implements UserDAO {
 	return userDTOResult;
 	
 }
+	
+	public Map<Integer, String> getLanguageid_name(UserDTO userDTO) {
+
+		Map<Integer, String> res1 = new HashMap<Integer, String>();
+		try {
+			con = DBManager.getCon();
+			ps = con.prepareStatement("SELECT language_id,language_name FROM user_language");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer column1 = rs.getInt("language_id");
+				String column2 = rs.getString("language_name");
+				res1.put(column1, column2);
+				userDTO.setResults(res1);
+
+			}
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return res1;
+	}
+
 
 	public Map<Integer, String> getTimezoneid_name(UserDTO userDTO) {
 
