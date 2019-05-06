@@ -10,7 +10,15 @@ public class UserDTO
 	public String mobileno;
 	public String lastlogin;
 	public String timezone_id;
+	public String language_id;
+	public String getLanguage_id() {
+		return language_id;
+	}
+	public void setLanguage_id(String language_id) {
+		this.language_id = language_id;
+	}
 	public String name;
+	
 	public Map<Integer, String> results;
 	public String time_id;
 	public String ZonedDateTime;
@@ -18,7 +26,13 @@ public class UserDTO
 	public String password2;
 	public String password1;
 	ArrayList<UserDTO> userRec;
-	public String user_Id;
+	public Integer user_Id;
+	public Integer getUser_Id() {
+		return user_Id;
+	}
+	public void setUser_Id(Integer user_Id) {
+		this.user_Id = user_Id;
+	}
 	public ArrayList<UserDTO> result;
 	public ArrayList<UserDTO> getUserslist() {
 		return userslist;
@@ -56,12 +70,7 @@ public class UserDTO
 	public void setResultauth(Map<String, String> resultauth) {
 		this.resultauth = resultauth;
 	}
-	public String getUser_Id() {
-		return user_Id;
-	}
-	public void setUser_Id(String user_Id) {
-		this.user_Id = user_Id;
-	}
+	
 	public String getLastlogin() {
 		return lastlogin;
 	}
@@ -127,10 +136,8 @@ public class UserDTO
 	public void setMobileno(String mobileno) {
 		this.mobileno = mobileno;
 	}
-	public void setLastlogin(java.time.ZonedDateTime time) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	
 	public String getPassword2() {
 		return password2;
 	}
@@ -150,11 +157,9 @@ public class UserDTO
 	public void setRes(UserDTO res) {
 		this.res = res;
 	}
-	public void LoadXml(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
+	
+	
 		
 	}
 	

@@ -1,4 +1,4 @@
-ALTER TABLE users_detail ADD COLUMN lang_id INTEGER;
+ALTER TABLE users_detail ADD COLUMN lastlogin character varying(100);
  
  ALTER TABLE users_detail ADD FOREIGN KEY (lang_id) REFERENCES user_language(language_id);
     
@@ -40,4 +40,10 @@ ALTER TABLE users_detail
   OWNER TO postgres;
 
 ALTER TABLE users_detail ADD FOREIGN KEY (lang_id) REFERENCES user_language(language_id);
+
+
+
+
+
+
  

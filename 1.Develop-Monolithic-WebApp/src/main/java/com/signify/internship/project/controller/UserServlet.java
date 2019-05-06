@@ -164,9 +164,9 @@ public class UserServlet extends HttpServlet {
 			   Document.append("\n");
 			   Document.append("</MyProfile>");
 			   System.out.println(Document.toString());
-			    response.setContentType("text/xml");
-			    response.setCharacterEncoding("UTF-8"); 
-			    response.getWriter().write(Document.toString()); 
+			   response.setContentType("text/xml");
+			   response.setCharacterEncoding("UTF-8"); 
+			   response.getWriter().write(Document.toString()); 
 				
 
 
@@ -292,6 +292,7 @@ public class UserServlet extends HttpServlet {
 		userDTO.setEmail(request.getParameter("email"));
 		userDTO.setMobileno(request.getParameter("mobileno"));
 		userDTO.setTimezone_id(request.getParameter("timezone_id"));
+		userDTO.setLanguage_id(request.getParameter("language_id"));
 		boolean status=userService.registerUserDetails(userDTO);
 		if(status) {
 			

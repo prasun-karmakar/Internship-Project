@@ -61,6 +61,7 @@ function handleEnter(e) {
 
 
 </script>
+
 <style>
 html { 
 	background: url(login_bg.jpg) no-repeat center fixed; 
@@ -165,6 +166,7 @@ a:active {
   color: blue;
 }
 </style>
+
 </head>
  
 <body>
@@ -186,6 +188,7 @@ a:active {
 		<input type="password" name="password1" class="text_input extra_text_input" placeholder="Confirm Password"/> <br/> <br/>
 		<input type="email" name="email" class="text_input extra_text_input" placeholder="email"/><br/><br />
 		<input type="text" name="mobileno" class="text_input extra_text_input" placeholder=" Mobile number "/> <br/> <br/>
+		
 		<div style="height: 40px;">
 		<select id="timezone_id" name="timezone_id" style="width:70%" >
          <% for(Map.Entry<Integer, String> entry: results.entrySet()) {
@@ -193,15 +196,17 @@ a:active {
           String name=entry.getValue();%>
         <option value="<%=timezone_id %>"><%=name%></option>
           <%}%>   
-</select></div> <br/> <br/>
-<div style="height: 40px;">
+         </select></div>
+        
+        <div style="height: 5px;">
 		<select id="language_id" name="language_id" style="width:70%" >
          <% for(Map.Entry<Integer, String> entry: res.entrySet()) {
          Integer language_id=entry.getKey();
-          String language_name=entry.getValue();%>
+         String language_name=entry.getValue();%>
         <option value="<%=language_id %>"><%=language_name%></option>
-          <%}%>   
-</select></div> <br/> <br/>
+         <%}%>   
+         </select></div> <br/> <br/><br/>
+        
 <button name="submit" class="font_style_form rounded_corner" onkeydown="handleEnter(event)">Submit</button> &nbsp;| &nbsp;<input type="button" value ="Cancel" class="font_style_form rounded_corner" onclick="window.location.href='login.jsp'"> <br/> <br/>
 </form>
 </div>	

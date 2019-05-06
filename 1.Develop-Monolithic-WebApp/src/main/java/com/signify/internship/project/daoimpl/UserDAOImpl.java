@@ -21,12 +21,14 @@ public class UserDAOImpl implements UserDAO {
 		int status = 0;
 		try {
 			con = DBManager.getCon();
-			ps = con.prepareStatement("insert into users_detail values(?,?,?,?,?)");
+			ps = con.prepareStatement("insert into users_detail values(?,?,?,?,?,?)");
 			ps.setString(1, userDTO.getUsername());
 			ps.setString(2, userDTO.getPassword());
 			ps.setString(3, userDTO.getEmail());
 			ps.setString(4, userDTO.getMobileno());
 			ps.setString(5, userDTO.getTimezone_id());
+			ps.setString(6, userDTO.getLanguage_id());
+			/*ps.setString(6,userDTO.getLang_id());*/
 			status = ps.executeUpdate();
 			con.close();
 		} catch (Exception e) {
