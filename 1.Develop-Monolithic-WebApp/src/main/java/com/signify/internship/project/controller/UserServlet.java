@@ -49,6 +49,10 @@ public class UserServlet extends HttpServlet {
 		else if (actionType.equals("reset")) {
 			ProcessResetPasswordRequestParameter(request, response);
 		}
+		else if (actionType.equals("update")) {
+			ProcessUserUpdateRecordRequestParameter(request, response);
+		}
+
 		else if(actionType.equals("list_UserRecords")) {
 			ProcessUserRecordRequestParameter(request,response);
 		}
@@ -63,13 +67,33 @@ public class UserServlet extends HttpServlet {
 		    ProcessEditUserProfileRequestParameter(request,response);	
 		}
 		
-		
-		
 		else if (actionType.equals("logout")) {
 		    ProcessLogoutRequestParameter(request, response);
 		}
 	}
-
+	
+	private void  ProcessUserUpdateRecordRequestParameter(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		UserDTO userDTO = new UserDTO();
+		UserService userService=new UserService();
+		String username = request.getParameter("Username");
+		String email = request.getParameter("Email");
+		String mobile_no = request.getParameter("Mobileno");
+		String timezone_id = request.getParameter("Timezone_id");
+		String language_id = request.getParameter("Language_id");
+		userDTO.setUsername(username);
+		userDTO.setEmail(email);
+		userDTO.setLanguage_id(language_id);
+		userDTO.setMobileno(mobile_no);
+		userDTO.setTimezone_id(timezone_id);
+		userService.updateUserInfo(userDTO);
+		
+	
+		
+}
+	
+	
+	
 	private void processLoginRequestParameter(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -92,6 +116,12 @@ public class UserServlet extends HttpServlet {
 			session.setAttribute("value", userDTO.getZonedDateTime());
 			userService.getTimezoneData(userDTO);
 			session.setAttribute("username",username);
+			/*String username = (String)request.getAttribute("un");
+		    session.setAttribute("UserName", username);*/
+			Map<Integer,String> results = userService.getTimezoneDropdownValues(userDTO);
+			Map<Integer,String> res1 = userService.getLanguageDropdownValues(userDTO);
+			request.setAttribute("language_list", res1);
+			request.setAttribute("timezone_list", results);
 			request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
 
 			
@@ -111,15 +141,14 @@ public class UserServlet extends HttpServlet {
 		userDTO.setUsername(username);
 		System.out.print(username);
 		UserDTO res=userService.getUpdateUsers(userDTO);
-		System.out.print(res.getPassword());
 		StringBuilder sb = new StringBuilder();
         sb.append("[");
         sb.append("{");
 		sb.append("\"Username\":"+"\""+res.getUsername().trim()+"\",");
 		sb.append("\"Email\":"+"\""+res.getEmail()+"\",");
-		sb.append("\"Password\":"+"\""+res.getPassword().trim()+"\",");
-		sb.append("\"Mobileno\":"+res.getMobileno()+",");
-	    sb.append("\"Lastlogin\":"+"\""+res.getLastlogin()+"\"");
+		sb.append("\"Mobileno\":"+res.getMobileno()+"");
+	    /*sb.append("\"Timezone_id\":"+"\""+res.getTimezone_id()+"\",");
+	    sb.append("\"Language_id\":"+"\""+res.getLanguage_id()+"\"");*/
 		sb.append("}");
 		sb.append("]");
 		System.out.println(sb.toString());
@@ -300,9 +329,9 @@ public class UserServlet extends HttpServlet {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 		else {
-		userService.insertUserDetails(userDTO);
-		request.setAttribute("successMessage", "Registration done,please login to continue!!!");
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+			userService.insertUserDetails(userDTO);
+			request.setAttribute("successMessage", "Registration done,please login to continue!!!");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 	}
 			

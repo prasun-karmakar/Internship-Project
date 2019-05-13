@@ -234,6 +234,27 @@ public UserDTO getUpdateUsers(UserDTO userDTO) {
 	return null;
 	
 }
+
+
+public String updateUserInfo(UserDTO userDTO) {
+	// TODO Auto-generated method stub
+	try {
+	UserDAO userDAO =new UserDAOImpl();
+	userDAO.storeUserProfileDetail(userDTO);
+	
+	return "status";
+	
+	}
+	catch(Exception e) {
+		System.out.println(e);
+	}
+	return null;
+	
+}
+
+
+
+
 }
 
 

@@ -194,7 +194,7 @@ a:active {
          <% for(Map.Entry<Integer, String> entry: results.entrySet()) {
          Integer timezone_id=entry.getKey();
           String name=entry.getValue();%>
-        <option value="<%=timezone_id %>"><%=name%></option>
+         <option value="<%=timezone_id %>"><%=name%></option>
           <%}%>   
          </select></div>
         

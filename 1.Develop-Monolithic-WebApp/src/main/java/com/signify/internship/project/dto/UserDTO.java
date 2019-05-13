@@ -26,14 +26,14 @@ public class UserDTO
 	public String password2;
 	public String password1;
 	ArrayList<UserDTO> userRec;
-	public Integer user_Id;
-	public Integer getUser_Id() {
-		return user_Id;
-	}
-	public void setUser_Id(Integer user_Id) {
-		this.user_Id = user_Id;
-	}
+	public String user_id;
 	public ArrayList<UserDTO> result;
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public ArrayList<UserDTO> getUserslist() {
 		return userslist;
 	}
@@ -157,6 +157,7 @@ public class UserDTO
 	public void setRes(UserDTO res) {
 		this.res = res;
 	}
+	
 	
 	
 	

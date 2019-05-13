@@ -98,22 +98,22 @@ public class UserDAOImpl implements UserDAO {
 		UserDTO userDTOResult=null;
 		try {
 			con=DBManager.getCon();
-			ps=con.prepareStatement("SELECT username,password,email,mobileno,lastlogin FROM users_detail where username=?");
+			ps=con.prepareStatement("SELECT username,email,mobileno FROM users_detail where username=?");
 			ps.setString(1, userDTO.getUsername());
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
 				userDTOResult=new UserDTO();
 				userDTOResult.setUsername(rs.getString("username").trim());
-				userDTOResult.setPassword(rs.getString("password"));
 			    userDTOResult.setEmail(rs.getString("email"));
 			    userDTOResult.setMobileno(rs.getString("mobileno"));
-	            userDTOResult.setLastlogin(rs.getString("lastlogin"));
-	        }
+	            /*userDTOResult.setTimezone_id(rs.getString("timezone_id"));
+	            userDTOResult.setLanguage_id(rs.getString("language_id"));*/
 			
-		
+			}
 		con.close();
 	}
+		
 		catch(Exception e) {
 			System.out.println(e);
 		}
@@ -298,6 +298,27 @@ public class UserDAOImpl implements UserDAO {
 			System.out.println(e);
 		}
 		return "invalid";
+	}
+	
+	public int storeUserProfileDetail(UserDTO userDTO) {
+		int status=0;
+		try {
+			con = DBManager.getCon();
+			ps = con.prepareStatement("UPDATE users_detail SET username=?,email=?, mobileno=?,timezone_id=?,language_id=? where username=?");
+			ps.setString(1, userDTO.getUsername());
+			ps.setString(2, userDTO.getEmail());
+			ps.setString(3, userDTO.getMobileno());
+			ps.setString(4, userDTO.getTimezone_id());
+			ps.setString(5, userDTO.getLanguage_id());
+			ps.setString(6,userDTO.getUsername());
+			status = ps.executeUpdate();
+			con.close();
+		}
+
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		return status;
 	}
 
 	public int updatePassword(UserDTO userDTO) {
