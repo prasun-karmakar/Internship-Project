@@ -178,9 +178,10 @@
 			            		    document.getElementById("t1").value=response[i].Username;
 			            		    document.getElementById("t2").value=response[i].Email;
 			            		    document.getElementById("t3").value=response[i].Mobileno;
-			            		    document.getElementById("t4").value=response[i].Timezone_id;
-			            		    document.getElementById("t5").value=response[i].Language_id;
-			            		    
+			            		   
+			            		    document.getElementById("timezone_id").selectedIndex =response[i].Timezone_id ;
+			            		    document.getElementById("language_id").selectedIndex =response[i].Language_id ;
+			            		    alert(document.getElementById("language_id").selectedIndex);
 	            		    
 
 			            		   /* table+="<tr><td>"+response[i].Username+"</td><td>"+response[i].Email+"</td><td>"+response[i].Password+"</td><td>"+response[i].Mobileno+"</td></tr>";
@@ -214,7 +215,8 @@
 			    
 			}
 		
-		function submission_form(){
+		function submission_form()
+		{
 			var t1=document.getElementById("t1").value;
 			var t2=document.getElementById("t2").value;
 			var t3=document.getElementById("t3").value;
@@ -235,31 +237,11 @@
 		            if (xhr.readyState == 4 && xhr.status==200)
 		            {   
 		   
-		            	var response = JSON.parse(xhr.responseText);
-		            	
-		            	if(null!=response)
-		            	{
-		            		
-		    				document.getElementById("").style.display = "block";
-	
-		            		var table="<tr><th>UserID</th><th>UserLinks</th></tr>"
-		            		for(var i=0;i<response.length;i++){
-		            		    
-		            		    table+="<tr><td>"+response[i].Username+"</td><td>"+"<a href='#' onclick='updateUsersDetail(\""+response[i].Username+"\")'>edit</a>"+"</td></tr>";
-		            		    document.getElementById("jsonFunc").innerHTML=table;
-	
-		            		}
-		            }	
-		            		
-		            	   
-		          
-		    				
-		    		else{
-		    				
-	    				document.getElementById("jsonFunc").style.display = "none";
-		    			}
-	
-		             } 
+		            
+		            	signup_container.style.display = 'none';
+		            	usersUpdate.style.display='block';
+		            			      
+		            		} 
 		    }
 		        
 		    
@@ -423,6 +405,16 @@ table {
         margin: 0 auto;
 		text-align: center;
   		border-collapse : collapse;}
+  		
+  		#usersUpdate{
+		
+		position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		display:none;
+		}
+		
 		
 		
 		#signup_container{
@@ -550,21 +542,24 @@ table {
 					</div>
 					
 					<div class="page_body"> <!-- Row within column div --> <!-- Right side body container -->
+						
 						<div id="signup_container">
 							<input type="text" name="username" class="text_input extra_text_input" placeholder="Username" id="t1" /> <br /><br /> 
 							<input type="text" name="email" class="text_input extra_text_input" placeholder="Email" id="t2" /> <br /><br />
 							<input type="text" name="mobileno" class="text_input extra_text_input" placeholder="Mobileno" id="t3" /><br /> <br /> 
+							<input type="hidden" name="timezone_id" id="t6" >
 							<div style="height: 40px;">
-								<select id="timezone_id" name="timezone_id" style="width:70%" >
+								<select id="timezone_id" name="name" style="width:70%" >
+								<option value="none">Select</option>  
          							<% for(Map.Entry<Integer, String> entry: timezone_list.entrySet()) {
          							Integer timezone_id=entry.getKey();
           							String name=entry.getValue();%>
          								<option value="<%=timezone_id %>"><%=name%></option>
-          							<%}%>   
-         						</select></div>
+         								<%}%> </select></div>
         
         						<div style="height: 5px;">
 									<select id="language_id" name="language_id" style="width:70%" >
+									<option value="none">Select</option> 
          								<% for(Map.Entry<Integer, String> entry: language_list.entrySet()) {
          								Integer language_id=entry.getKey();
          								String language_name=entry.getValue();%>
@@ -573,6 +568,9 @@ table {
          						</select></div> <br/> <br/><br/>
         
 							<button onclick="submission_form()">Submit</button> &nbsp;| &nbsp;<input type="button" value="Cancel" onclick="getUserList()"> <br /> <br />
+						</div>
+						<div id="usersUpdate">
+						<p>Users Detail updated</p>
 						</div>
 						
 							<div id="sampleDiv" >

@@ -190,7 +190,8 @@ a:active {
 		<input type="text" name="mobileno" class="text_input extra_text_input" placeholder=" Mobile number "/> <br/> <br/>
 		
 		<div style="height: 40px;">
-		<select id="timezone_id" name="timezone_id" style="width:70%" >
+		<select id="timezone_id" name="name" style="width:70%" >
+		<option value="none">Select</option>  
          <% for(Map.Entry<Integer, String> entry: results.entrySet()) {
          Integer timezone_id=entry.getKey();
           String name=entry.getValue();%>

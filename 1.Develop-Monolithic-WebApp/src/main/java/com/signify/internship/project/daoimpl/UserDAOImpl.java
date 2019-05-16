@@ -98,7 +98,7 @@ public class UserDAOImpl implements UserDAO {
 		UserDTO userDTOResult=null;
 		try {
 			con=DBManager.getCon();
-			ps=con.prepareStatement("SELECT username,email,mobileno FROM users_detail where username=?");
+			ps=con.prepareStatement("SELECT username,email,mobileno,timezone_id,language_id FROM users_detail where username=?");
 			ps.setString(1, userDTO.getUsername());
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
@@ -107,8 +107,8 @@ public class UserDAOImpl implements UserDAO {
 				userDTOResult.setUsername(rs.getString("username").trim());
 			    userDTOResult.setEmail(rs.getString("email"));
 			    userDTOResult.setMobileno(rs.getString("mobileno"));
-	            /*userDTOResult.setTimezone_id(rs.getString("timezone_id"));
-	            userDTOResult.setLanguage_id(rs.getString("language_id"));*/
+	            userDTOResult.setTimezone_id(rs.getString("timezone_id"));
+	            userDTOResult.setLanguage_id(rs.getString("language_id"));
 			
 			}
 		con.close();

@@ -1,5 +1,6 @@
 package com.signify.internship.project.controller;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -146,9 +147,9 @@ public class UserServlet extends HttpServlet {
         sb.append("{");
 		sb.append("\"Username\":"+"\""+res.getUsername().trim()+"\",");
 		sb.append("\"Email\":"+"\""+res.getEmail()+"\",");
-		sb.append("\"Mobileno\":"+res.getMobileno()+"");
-	    /*sb.append("\"Timezone_id\":"+"\""+res.getTimezone_id()+"\",");
-	    sb.append("\"Language_id\":"+"\""+res.getLanguage_id()+"\"");*/
+		sb.append("\"Mobileno\":"+res.getMobileno()+",");
+	    sb.append("\"Timezone_id\":"+"\""+res.getTimezone_id()+"\",");
+	    sb.append("\"Language_id\":"+"\""+res.getLanguage_id()+"\"");
 		sb.append("}");
 		sb.append("]");
 		System.out.println(sb.toString());
@@ -320,7 +321,7 @@ public class UserServlet extends HttpServlet {
 		userDTO.setPassword1(request.getParameter("password1"));
 		userDTO.setEmail(request.getParameter("email"));
 		userDTO.setMobileno(request.getParameter("mobileno"));
-		userDTO.setTimezone_id(request.getParameter("timezone_id"));
+		userDTO.setTimezone_id(request.getParameter("name"));
 		userDTO.setLanguage_id(request.getParameter("language_id"));
 		boolean status=userService.registerUserDetails(userDTO);
 		if(status) {

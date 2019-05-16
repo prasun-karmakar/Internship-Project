@@ -8,9 +8,11 @@ public class InternationalizationDemo {
   ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", Locale.US);  
   System.out.println("Message in "+Locale.US +":"+bundle.getString("greeting"));    
   Locale.setDefault(new Locale("in", "ID"));  
+  
   bundle = ResourceBundle.getBundle("MessageBundle");  
   System.out.println("Message in "+Locale.getDefault()+":"+bundle.getString("greeting"));  
   Locale.setDefault(new Locale("fr", "FR"));
+  
   bundle = ResourceBundle.getBundle("MessageBundle");  
   System.out.println("Message in "+Locale.getDefault()+":"+bundle.getString("greeting"));  
   
@@ -18,3 +20,9 @@ public class InternationalizationDemo {
   
  }  
 }  
+
+/*Locale locale = new Locale("en", "US");
+
+ResourceBundle labels = ResourceBundle.getBundle("i18n.MyBundle", locale);
+
+System.out.println(labels.getString("label1"));*/
