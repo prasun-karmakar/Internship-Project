@@ -1,4 +1,4 @@
-package com.signify.internship.project.demo;
+package com.signify.internship.project.db;
 
 import java.util.Locale;  
 import java.util.ResourceBundle;  
@@ -8,7 +8,7 @@ public class InternationalizationDemo {
   
   ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", Locale.US);  
   System.out.println("Message in "+Locale.US +":"+bundle.getString("Hello"));    
-  //Locale.setDefault(new Locale("in", "ID")); 
+  Locale.setDefault(new Locale("in", "ID")); 
   
   bundle = ResourceBundle.getBundle("MessageBundle");  
   System.out.println(bundle.getString("Hello"));  

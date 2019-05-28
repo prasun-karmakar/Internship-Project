@@ -252,7 +252,25 @@ public String updateUserInfo(UserDTO userDTO) {
 	
 }
 
+
+public int getLanguageId(UserDTO userDTO) {
+	// TODO Auto-generated method stub
+	
+	try {
+		 UserDAO userDAO=new UserDAOImpl();
+		 int language_id=userDAO.getDatabaseLanguageId(userDTO);
+	     return language_id;
+    }
+	catch(Exception e) {
+			System.out.println(e);
+		  }
+	return 0;
+
+	}
+	
 }
+
+
 
 
 

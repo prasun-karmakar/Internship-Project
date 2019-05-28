@@ -11,6 +11,7 @@ public class UserDTO
 	public String lastlogin;
 	public String timezone_id;
 	public String language_id;
+	public Integer language_id1;
 	public String getLanguage_id() {
 		return language_id;
 	}
@@ -157,6 +158,14 @@ public class UserDTO
 	public void setRes(UserDTO res) {
 		this.res = res;
 	}
+	public Integer getLanguage_id1() {
+		return language_id1;
+	}
+	public void setLanguage_id1(Integer language_id1) {
+		this.language_id1 = language_id1;
+	}
+	
+	
 	
 	
 	

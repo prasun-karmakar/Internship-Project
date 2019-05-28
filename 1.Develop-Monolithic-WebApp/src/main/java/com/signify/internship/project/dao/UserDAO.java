@@ -25,6 +25,7 @@ public interface UserDAO
 	public UserDTO fetchUserUpdateProfileDetail(UserDTO userDTO);
 	public Map<Integer,String> getLanguageid_name(UserDTO userDTO);
 	public int storeUserProfileDetail(UserDTO userDTO);
+	public int getDatabaseLanguageId(UserDTO userDTO);
 	
 }
 	

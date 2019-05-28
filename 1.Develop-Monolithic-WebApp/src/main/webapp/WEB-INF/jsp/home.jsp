@@ -1,16 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="java.util.*" %>
+<%@ page import="java.util.*" %>
 <%@page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap"%>
 <%@ page import= "java.util.Map"%>
 <%@ page import="com.signify.internship.project.controller.UserServlet" %>
 <%@ page import="com.signify.internship.project.dto.UserDTO" %>
-<%@page import = "com.signify.internship.project.controller.UserServlet" %>
-<%@page import = "com.signify.internship.project.dto.UserDTO" %>
-<%ArrayList result=(ArrayList)request.getAttribute("result"); %>
+<%@page import = "com.signify.internship.project.db.ResourceBundleManager" %>
+
 <% Map<Integer,String> timezone_list=(HashMap<Integer,String>)request.getAttribute("timezone_list");%>
-<% Map<Integer,String> language_list=(HashMap<Integer,String>)request.getAttribute("language_list");%>
+
+
+<%Map<Integer,String> language_list=(HashMap<Integer,String>)request.getAttribute("language_list");%>
+
+<%ArrayList result=(ArrayList)request.getAttribute("result");%>
+
+
+<%int languageId=(session.getAttribute("language_id")!=null)?Integer.valueOf((Integer)session.getAttribute("language_id")):1;%>
+
 
 
 <!DOCTYPE html>
@@ -25,8 +32,10 @@
 		<script>
 	
 		
-		function pageLoad(){
+		function pageLoad()
+		{
 			var result = <%=(ArrayList)request.getAttribute("result")%>;
+			
 			if(null!=result)
 			{
 				sampleDiv.style.display = 'block';
@@ -39,7 +48,7 @@
 }
 		
 					
-
+		
 		function getUserProfileDetail() {
 		    // 1. Instantiate XHR - Start 
 
@@ -60,12 +69,14 @@
 		            	var xmlDoc = xhr.responseXML; 
 		            	var i;
 		                if(null!=xmlDoc){
+		                	sampleDiv.style.display='none';
+		                	jsonFunc.style.display='none';
 		    				document.getElementById("ajaxFunc").style.display = "block";
 
-		    				var table="<tr><th>UserID</th><th>Mobileno</th><th>lastlogin</th><th>email</th></tr><br />";
+		    				var table="<tr><th>UserID</th><th>Mobileno</th><th>lastlogin</th><th>email</th><th>language_id</th></tr><br />";
 		    				var x= xmlDoc.getElementsByTagName("User");
 		    				for(i=0;i<x.length;i++){
-		    					table+="<tr><td>"+x[i].getElementsByTagName("UserID")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("Mobileno")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("lastlogin")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("email")[0].childNodes[0].nodeValue+"</td></tr>";
+		    					table+="<tr><td>"+x[i].getElementsByTagName("UserID")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("Mobileno")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("lastlogin")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("email")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("Language_Id")[0].childNodes[0].nodeValue+"</td></tr>";
 		    					document.getElementById('ajaxFunc').innerHTML=table;
 		    				}
 		    				
@@ -509,7 +520,7 @@ table {
 						<div class="nav_image_div"> <!-- column within row div --> <!-- User Profile header on top of Nav menu links -->
 							<div class="">								
 								<img src="admin.jpg" alt="Profile Image" style="border-radius: 5%;">
-								<h3>Hello ${username}</h3>								
+								<h3><%=ResourceBundleManager.getString("MessageBundle","Hello",languageId)%> ${username}</h3>								
 							</div>
 						</div>
 						<hr> <br>
@@ -517,13 +528,13 @@ table {
 							<div class=""> <!-- Child Row div -->
 								<ul class="">
 									
-									<li class="active"><a href="loginRegister?actionType=list_UserRecords" style="text-decoration:none">Registered Users</a></li> 
-									<li class="active"><a href="#section1" onclick="getUserProfileDetail()" style="text-decoration:none">MyProfile</a></li> 
-									<li><a href="#section2" style="text-decoration:none">Add New User</a></li> 
-									<li class="active"><a href="#section3" onclick="getUserList()" style="text-decoration:none">Edit User Profile</a></li> 
-									<li><a href="#section3" style="text-decoration:none">Remove User</a></li> 
-									<li><a href="changepassword.jsp" style="text-decoration:none">Change Password</a></li>
-									<li><a href="loginRegister?actionType=logout" style="text-decoration:none">Logout</a></li>
+									<li class="active"><a href="loginRegister?actionType=list_UserRecords" style="text-decoration:none"><%=ResourceBundleManager.getString("MessageBundle","registeredUsers",languageId)%></a></li> 
+									<li class="active"><a href="#section1" onclick="getUserProfileDetail()" style="text-decoration:none"><%=ResourceBundleManager.getString("MessageBundle","myProfile",languageId)%></a></li> 
+									<li><a href="#section2" style="text-decoration:none"><%=ResourceBundleManager.getString("MessageBundle","addNewUser",languageId)%></a></li> 
+									<li class="active"><a href="#section3" onclick="getUserList()" style="text-decoration:none"><%=ResourceBundleManager.getString("MessageBundle","editUserProfile",languageId)%></a></li> 
+									<li><a href="#section3" style="text-decoration:none"><%=ResourceBundleManager.getString("MessageBundle","removeUser",languageId)%></a></li> 
+									<li><a href="changepassword.jsp" style="text-decoration:none"><%=ResourceBundleManager.getString("MessageBundle","changePassword",languageId)%></a></li>
+									<li><a href="loginRegister?actionType=logout" style="text-decoration:none"><%=ResourceBundleManager.getString("MessageBundle","logout",languageId)%></a></li>
 								</ul> <br>
 							</div>
 						</div>		
@@ -535,8 +546,8 @@ table {
 						<div class=""> <!-- column within row div -->
 							<div class="nav_image_div">
 								<img src="signify_header.jpg" alt="signify_header.png" class="">
-								<div class="topleft"> Welcome</div>
-								<div class="topright">Last Login Time:${value} </div>
+								<div class="topleft"><%=ResourceBundleManager.getString("MessageBundle","welcome",languageId)%></div>
+								<div class="topright"><%=ResourceBundleManager.getString("MessageBundle","lastLoginTime",languageId)%>:${value} </div>
 							</div>
 						</div>
 					</div>
@@ -544,27 +555,32 @@ table {
 					<div class="page_body"> <!-- Row within column div --> <!-- Right side body container -->
 						
 						<div id="signup_container">
-							<input type="text" name="username" class="text_input extra_text_input" placeholder="Username" id="t1" /> <br /><br /> 
-							<input type="text" name="email" class="text_input extra_text_input" placeholder="Email" id="t2" /> <br /><br />
-							<input type="text" name="mobileno" class="text_input extra_text_input" placeholder="Mobileno" id="t3" /><br /> <br /> 
-							<input type="hidden" name="timezone_id" id="t6" >
+							Username:<input type="text" name="username" class="text_input extra_text_input" placeholder="Username" id="t1" /> <br /><br /> 
+							Email:<input type="text" name="email" class="text_input extra_text_input" placeholder="Email" id="t2" /> <br /><br />
+							Mobileno:<input type="text" name="mobileno" class="text_input extra_text_input" placeholder="Mobileno" id="t3" /><br /> <br /> 
+							Timezone_id:
 							<div style="height: 40px;">
-								<select id="timezone_id" name="name" style="width:70%" >
-								<option value="none">Select</option>  
-         							<% for(Map.Entry<Integer, String> entry: timezone_list.entrySet()) {
+								<select id="timezone_id" name="name" style="width:90%" >
+								<option value="none">Select</option> 
+								<%if(timezone_list!=null){
+         							for(Map.Entry<Integer, String> entry:timezone_list.entrySet()) {
          							Integer timezone_id=entry.getKey();
           							String name=entry.getValue();%>
          								<option value="<%=timezone_id %>"><%=name%></option>
-         								<%}%> </select></div>
-        
+         								<%}%><%} %> </select></div>
+         								
+         								
+ 			
+        					Language_id:
         						<div style="height: 5px;">
-									<select id="language_id" name="language_id" style="width:70%" >
+									<select id="language_id" name="language_id" style="width:90%" >
 									<option value="none">Select</option> 
-         								<% for(Map.Entry<Integer, String> entry: language_list.entrySet()) {
+									<%if(language_list!=null){
+         							for(Map.Entry<Integer, String> entry: language_list.entrySet()) {
          								Integer language_id=entry.getKey();
          								String language_name=entry.getValue();%>
         									<option value="<%=language_id %>"><%=language_name%></option>
-         							<%}%>   
+         							<%}%> <%}%>  
          						</select></div> <br/> <br/><br/>
         
 							<button onclick="submission_form()">Submit</button> &nbsp;| &nbsp;<input type="button" value="Cancel" onclick="getUserList()"> <br /> <br />

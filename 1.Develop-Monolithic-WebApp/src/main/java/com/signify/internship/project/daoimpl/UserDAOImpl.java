@@ -28,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
 			ps.setString(4, userDTO.getMobileno());
 			ps.setString(5, userDTO.getTimezone_id());
 			ps.setString(6, userDTO.getLanguage_id());
-			/*ps.setString(6,userDTO.getLang_id());*/
+			
 			status = ps.executeUpdate();
 			con.close();
 		} catch (Exception e) {
@@ -127,7 +127,7 @@ public class UserDAOImpl implements UserDAO {
 		con=DBManager.getCon();
 		
 
-		ps=con.prepareStatement("SELECT username,email,mobileno,lastlogin FROM users_detail where username=?");
+		ps=con.prepareStatement("SELECT username,email,mobileno,lastlogin,language_id FROM users_detail where username=?");
 		ps.setString(1, userDTO.getUsername());
 		
       ResultSet rs=ps.executeQuery();
@@ -138,6 +138,8 @@ public class UserDAOImpl implements UserDAO {
 		    userDTOResult.setEmail(rs.getString("email"));
 		    userDTOResult.setMobileno(rs.getString("mobileno"));
             userDTOResult.setLastlogin(rs.getString("lastlogin"));
+            userDTOResult.setLanguage_id(rs.getString("language_id"));
+            
         }
 		con.close();
 		
@@ -380,4 +382,25 @@ public int updateUserProfile(UserDTO userDTO) {
 		}
 		return status;
 	}
+
+
+public int getDatabaseLanguageId(UserDTO userDTO) {
+	int status=0;
+	try {
+		con = DBManager.getCon();
+		ps = con.prepareStatement("SELECT language_id from users_detail where username=?");
+		ps.setString(1, userDTO.getUsername());
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			int language_id=rs.getInt("language_id");
+			return language_id;
+		}
+		con.close(); 
+	} catch (Exception e) {
+		System.out.println(e);
+	}
+	return status;
+}
+
+
 }

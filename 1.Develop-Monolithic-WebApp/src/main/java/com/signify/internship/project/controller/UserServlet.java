@@ -121,8 +121,11 @@ public class UserServlet extends HttpServlet {
 		    session.setAttribute("UserName", username);*/
 			Map<Integer,String> results = userService.getTimezoneDropdownValues(userDTO);
 			Map<Integer,String> res1 = userService.getLanguageDropdownValues(userDTO);
+			int languageid=userService.getLanguageId(userDTO);
+			request.setAttribute("language_id",languageid);
 			request.setAttribute("language_list", res1);
 			request.setAttribute("timezone_list", results);
+			session.setAttribute("language_id",languageid);
 			request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
 
 			
@@ -168,6 +171,7 @@ public class UserServlet extends HttpServlet {
 		String username=(String)session.getAttribute("username");
 		userDTO.setUsername(username);
 	    UserDTO res=userService.getUserProfileDetail(userDTO);
+	    session.setAttribute("languageID", res.getLanguage_id());
 		StringBuilder Document = new StringBuilder(); // create a generic XML string
 			   Document.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 			   Document.append("<MyProfile>");//declare the root.
@@ -185,6 +189,10 @@ public class UserServlet extends HttpServlet {
 			   Document.append("<lastlogin>");
 			   Document.append(res.getLastlogin());
 			   Document.append("</lastlogin>");
+			   Document.append("\n");
+			   Document.append("<Language_Id>");//declare the sub child.
+			   Document.append(res.getLanguage_id()); 
+			   Document.append("</Language_Id>");
 			   Document.append("\n");
 			   Document.append("<email>");
 			   Document.append(res.getEmail());
@@ -316,6 +324,7 @@ public class UserServlet extends HttpServlet {
 		
 		UserDTO userDTO = new UserDTO();
 		UserService userService=new UserService();
+		
 		userDTO.setUsername(request.getParameter("username"));
 		userDTO.setPassword(request.getParameter("password"));
 		userDTO.setPassword1(request.getParameter("password1"));
@@ -323,6 +332,7 @@ public class UserServlet extends HttpServlet {
 		userDTO.setMobileno(request.getParameter("mobileno"));
 		userDTO.setTimezone_id(request.getParameter("name"));
 		userDTO.setLanguage_id(request.getParameter("language_id"));
+		
 		boolean status=userService.registerUserDetails(userDTO);
 		if(status) {
 			
