@@ -37,6 +37,10 @@ public class UserServlet extends HttpServlet {
 		else if (actionType.equals("Forgotpwd")) {
 			processForgotPwdRequestParameter(request, response);
 		}
+		
+		else if (actionType.equals("updatePassword")) {
+			processUpdatePwdRequestParameter(request, response);
+		}
 
 		else if (actionType.equals("newregister")) {//newRegistraionReq
 			processRegisterRequestParameter(request, response);
@@ -63,6 +67,10 @@ public class UserServlet extends HttpServlet {
 		else if(actionType.equals("updateRecords")) {
 			ProcessUserUpdateRequestParameter(request,response);
 		}
+		else if(actionType.equals("deleteRecords")) {
+			ProcessUserDeleteRequestParameter(request,response);
+		}
+		
 		
 		else if(actionType.equals("editUserProfile")) {
 		    ProcessEditUserProfileRequestParameter(request,response);	
@@ -72,6 +80,26 @@ public class UserServlet extends HttpServlet {
 		    ProcessLogoutRequestParameter(request, response);
 		}
 	}
+	
+	
+	private void  processUpdatePwdRequestParameter(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		UserDTO userDTO = new UserDTO();
+		UserService userService=new UserService();
+		String username = request.getParameter("Username");
+		System.out.println(username);
+		String newpassword = request.getParameter("Newpassword");
+		System.out.println(newpassword);
+		String confirmpassword= request.getParameter("Confirmpassword");
+		System.out.println(confirmpassword);
+		userDTO.setUsername(username);
+		userDTO.setNewpassword(newpassword);
+		userDTO.setConfirmpassword(confirmpassword);
+		userService.updateUserPassword(userDTO);
+		
+}
+	
+	
 	
 	private void  ProcessUserUpdateRecordRequestParameter(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -137,6 +165,20 @@ public class UserServlet extends HttpServlet {
 
 	}
 	
+	private void ProcessUserDeleteRequestParameter(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		UserDTO userDTO = new UserDTO();
+		UserService userService=new UserService();
+		String username = request.getParameter("Username"); 
+		userDTO.setUsername(username);
+		System.out.print(username);
+	    userService.deleteUsers(userDTO);
+		
+}
+
+	
+	
+
 	private void ProcessUserUpdateRequestParameter(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		UserDTO userDTO = new UserDTO();
@@ -171,7 +213,6 @@ public class UserServlet extends HttpServlet {
 		String username=(String)session.getAttribute("username");
 		userDTO.setUsername(username);
 	    UserDTO res=userService.getUserProfileDetail(userDTO);
-	    session.setAttribute("languageID", res.getLanguage_id());
 		StringBuilder Document = new StringBuilder(); // create a generic XML string
 			   Document.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 			   Document.append("<MyProfile>");//declare the root.
@@ -191,12 +232,16 @@ public class UserServlet extends HttpServlet {
 			   Document.append("</lastlogin>");
 			   Document.append("\n");
 			   Document.append("<Language_Id>");//declare the sub child.
-			   Document.append(res.getLanguage_id()); 
+			   Document.append(res.getLanguage_name()); 
 			   Document.append("</Language_Id>");
 			   Document.append("\n");
 			   Document.append("<email>");
 			   Document.append(res.getEmail());
 			   Document.append("</email>");
+			   Document.append("\n");
+			   Document.append("<name>");
+			   Document.append(res.getName());
+			   Document.append("</name>");
 			   Document.append("\n");
 			   Document.append("</User>");//declare the root.
 			   Document.append("\n");
@@ -257,9 +302,29 @@ public class UserServlet extends HttpServlet {
 		UserDTO userDTO = new UserDTO();
 		UserService userService=new UserService();
 		ArrayList<UserDTO> result = userService.getUserDetails(userDTO);
-		request.setAttribute("result", result);
-		request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
-		
+		StringBuilder sb = new StringBuilder();
+        sb.append("[");
+	    for(int count=0;count<result.size();count++)
+		{
+		 UserDTO userDTO1=(UserDTO)result.get(count);	
+		//string str = "\"ugjhjnhjknkjk\"";
+		 	sb.append("{");
+			sb.append("\"Username\":"+"\""+userDTO1.getUsername().trim()+"\",");
+			sb.append("\"Email\":"+"\""+userDTO1.getEmail()+"\",");
+			sb.append("\"Mobileno\":"+userDTO1.getMobileno()+",");
+			sb.append("\"Language_name\":"+"\""+userDTO1.getLanguage_name()+"\",");
+		    sb.append("\"Timezone_id\":"+"\""+userDTO1.getName()+"\"");
+			sb.append("}");
+			sb.append(",");   
+		}
+
+	   sb.deleteCharAt(sb.lastIndexOf(","));    //You can check here if string builder has comma to avoid IndexOutofboundException
+	   sb.append("]");
+	   System.out.println(sb.toString());
+	   response.setContentType("application/json");
+       response.setCharacterEncoding("UTF-8");
+	   response.getWriter().write(sb.toString()); 
+
 		
 	}
 		
@@ -368,11 +433,7 @@ public class UserServlet extends HttpServlet {
         sb.append("[");
 	    for(int count=0;count<userslist.size();count++)
 		{
-		 UserDTO userDTO1=(UserDTO)userslist.get(count);
-		
-			
-		 	
-			
+		 UserDTO userDTO1=(UserDTO)userslist.get(count);	
 		//string str = "\"ugjhjnhjknkjk\"";
 		 	sb.append("{");
 			sb.append("\"Username\":"+"\""+userDTO1.getUsername().trim()+"\",");
@@ -380,35 +441,15 @@ public class UserServlet extends HttpServlet {
 			sb.append("\"Mobileno\":"+userDTO1.getMobileno()+",");
 		    sb.append("\"Lastlogin\":"+"\""+userDTO1.getLastlogin()+"\"");
 			sb.append("}");
-			sb.append(",");
-
-		    
+			sb.append(",");   
 		}
 
 	   sb.deleteCharAt(sb.lastIndexOf(","));    //You can check here if string builder has comma to avoid IndexOutofboundException
-
 	   sb.append("]");
-	   
 	   System.out.println(sb.toString());
 	   response.setContentType("application/json");
        response.setCharacterEncoding("UTF-8");
 	   response.getWriter().write(sb.toString()); 
-		/*StringBuilder sb = new StringBuilder();
-		sb.append("{");
-		sb.append("\"name\"");
-		sb.append(":");
-		sb.append("\"sindhu\"");
-		sb.append(",");
-		sb.append("\"age\"");
-		sb.append(":");
-		sb.append("24");
-		sb.append("}");
-		System.out.println(sb.toString());
-		response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-	    response.getWriter().write(sb.toString()); */
-
-		
 		}
 
 	private void ProcessLogoutRequestParameter(HttpServletRequest request, HttpServletResponse response)

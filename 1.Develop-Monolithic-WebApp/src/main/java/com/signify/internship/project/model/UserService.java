@@ -267,7 +267,40 @@ public int getLanguageId(UserDTO userDTO) {
 	return 0;
 
 	}
+
+
+public String deleteUsers(UserDTO userDTO) {
+	// TODO Auto-generated method stub
+	try {
+		UserDAO userDAO=new UserDAOImpl();
+		userDAO.deleteUsersProfileDetail(userDTO);
+		return "status";
 	
+	}
+	catch(Exception e) {
+		System.out.println(e);
+	}
+
+	return null;
+
+}
+
+
+public String updateUserPassword(UserDTO userDTO) {
+	// TODO Auto-generated method stub
+	
+	try {
+		UserDAO userDAO = new UserDAOImpl();
+		userDAO.updateUserPasswordRequest(userDTO);
+		return "valid";
+	}
+	catch(Exception e) {
+		System.out.println(e);
+		
+	}
+	return "invalid";
+	
+}
 }
 
 

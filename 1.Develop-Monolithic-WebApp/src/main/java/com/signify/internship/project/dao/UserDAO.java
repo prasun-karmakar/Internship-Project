@@ -26,6 +26,8 @@ public interface UserDAO
 	public Map<Integer,String> getLanguageid_name(UserDTO userDTO);
 	public int storeUserProfileDetail(UserDTO userDTO);
 	public int getDatabaseLanguageId(UserDTO userDTO);
+	public int deleteUsersProfileDetail(UserDTO userDTO);
+	public int updateUserPasswordRequest(UserDTO userDTO);
 	
 }
 	

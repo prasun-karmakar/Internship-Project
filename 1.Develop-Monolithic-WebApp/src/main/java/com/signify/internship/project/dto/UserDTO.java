@@ -12,6 +12,15 @@ public class UserDTO
 	public String timezone_id;
 	public String language_id;
 	public Integer language_id1;
+	public String language_name;
+	public String newpassword;
+	public String confirmpassword;
+	public String getLanguage_name() {
+		return language_name;
+	}
+	public void setLanguage_name(String language_name) {
+		this.language_name = language_name;
+	}
 	public String getLanguage_id() {
 		return language_id;
 	}
@@ -164,14 +173,20 @@ public class UserDTO
 	public void setLanguage_id1(Integer language_id1) {
 		this.language_id1 = language_id1;
 	}
-	
-	
-	
-	
-	
-	
-		
+	public String getNewpassword() {
+		return newpassword;
 	}
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
+	}
+	public String getConfirmpassword() {
+		return confirmpassword;
+	}
+	public void setConfirmpassword(String confirmpassword) {
+		this.confirmpassword = confirmpassword;
+	}
+	
+}
 	
 	
 

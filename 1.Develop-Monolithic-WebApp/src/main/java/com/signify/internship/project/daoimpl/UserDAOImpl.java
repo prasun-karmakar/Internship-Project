@@ -72,7 +72,7 @@ public class UserDAOImpl implements UserDAO {
 		ArrayList<UserDTO> UserRec=new ArrayList<>();
 	  	try{
 			con=DBManager.getCon();
-			ps=con.prepareStatement("SELECT username,email,mobileno,timezone_id FROM users_detail");
+			ps=con.prepareStatement("SELECT username,email,mobileno,name,language_name FROM users_detail INNER JOIN user_time ON users_detail.timezone_id =user_time.timezone_id INNER JOIN user_language ON users_detail.language_id=user_language.language_id ");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 				{
@@ -81,7 +81,8 @@ public class UserDAOImpl implements UserDAO {
 					 userDTOResult.setUsername(rs.getString("username"));
 				     userDTOResult.setEmail(rs.getString("email"));
 				     userDTOResult.setMobileno(rs.getString("mobileno"));
-				     userDTOResult.setTimezone_id(rs.getString("timezone_id"));
+				     userDTOResult.setName(rs.getString("name"));
+				     userDTOResult.setLanguage_name(rs.getString("language_name"));
 				     UserRec.add(userDTOResult);
 				     userDTOResult.setUserRec(UserRec);
 			     }
@@ -121,13 +122,36 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 	
+	public int deleteUsersProfileDetail(UserDTO userDTO) {
+		int status = 0;
+		try {
+			con=DBManager.getCon();
+			ps=con.prepareStatement("DELETE FROM users_detail where username=?");
+			ps.setString(1, userDTO.getUsername());
+			status = ps.executeUpdate();
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return status;
+	}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public UserDTO fetchUserProfileDetail(UserDTO userDTO) {
 		UserDTO userDTOResult=null;
 	try {
 		con=DBManager.getCon();
 		
 
-		ps=con.prepareStatement("SELECT username,email,mobileno,lastlogin,language_id FROM users_detail where username=?");
+		ps=con.prepareStatement("SELECT username,email,mobileno,lastlogin,language_name,name FROM users_detail INNER JOIN user_language ON users_detail.language_id =user_language.language_id INNER JOIN user_time ON users_detail.timezone_id =user_time.timezone_id where username=?");
 		ps.setString(1, userDTO.getUsername());
 		
       ResultSet rs=ps.executeQuery();
@@ -138,7 +162,8 @@ public class UserDAOImpl implements UserDAO {
 		    userDTOResult.setEmail(rs.getString("email"));
 		    userDTOResult.setMobileno(rs.getString("mobileno"));
             userDTOResult.setLastlogin(rs.getString("lastlogin"));
-            userDTOResult.setLanguage_id(rs.getString("language_id"));
+            userDTOResult.setLanguage_name(rs.getString("language_name"));
+            userDTOResult.setName(rs.getString("name"));
             
         }
 		con.close();
@@ -322,6 +347,26 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return status;
 	}
+	
+	public int updateUserPasswordRequest(UserDTO userDTO) {
+		int status = 0;
+		try {
+			con = DBManager.getCon();
+			ps = con.prepareStatement("UPDATE users_detail SET password=? where username=?");
+			ps.setString(1, userDTO.getConfirmpassword());
+			ps.setString(2, userDTO.getUsername());
+			status = ps.executeUpdate();
+			con.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return status;
+
+	}
+	
+	
 
 	public int updatePassword(UserDTO userDTO) {
 		int status = 0;
