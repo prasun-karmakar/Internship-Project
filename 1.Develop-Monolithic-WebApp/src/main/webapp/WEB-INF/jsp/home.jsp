@@ -76,7 +76,7 @@
 							<div class="nav_image_div">
 								<img src="signify_header.jpg" alt="signify_header.png" class="">
 								<div class="topleft"><%=ResourceBundleManager.getString("MessageBundle","welcome",languageId)%></div>
-								<div class="topright"><%=ResourceBundleManager.getString("MessageBundle","lastLoginTime",languageId)%>:${value} </div>
+								<div class="topright"><%=ResourceBundleManager.getString("MessageBundle","lastLoginTime",languageId)%>:${Lastlogin}</div>
 							</div>
 						</div>
 					</div>
@@ -134,17 +134,17 @@
  	
 						 <div id="registeredUsers">  
 	                        <h3 class="formheading">Registered Users</h3> 
-	                       <table id="sampleDiv"> </table>
+	                       <table id="usersList"> </table>
 						</div>
 						
 						<div id="userProfileDetail">  
 						<h3 class="formheading">MyProfile</h3> 
-	                       <table id="ajaxFunc"> </table>
+	                       <table id="profileDetail"> </table>
 						</div>
 					
 					<div id="getUserListForUpdate">  
 						<h3 class="formheading">User Update Links</h3> 
-	   						<table id="jsonFunc"></table>
+	   						<table id="editUserList"></table>
 	   				 </div>
 	   				 
 	   				 <div id="deleteUser">  

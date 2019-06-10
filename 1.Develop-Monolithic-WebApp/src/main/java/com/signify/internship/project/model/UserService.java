@@ -15,7 +15,7 @@ public class UserService {
 		
 		
 			UserDAO userDAO=new UserDAOImpl();
-			UserDTO result=userDAO.getUserDetails(userDTO);
+			UserDTO result=userDAO.getLoginUserDetails(userDTO);
 			if(null!=result) {
 				return true;
 			}
@@ -49,7 +49,7 @@ public String getTimezoneData(UserDTO userDTO) {
 	ZoneId la = ZoneId.of(userDTO.getName());
 	ZonedDateTime time = ZonedDateTime.now(la);
 	System.out.println(time);
-	DateTimeFormatter aFormatter = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd-HH.mm").parseLenient().appendOffset("+HH:MM", "Z").toFormatter();
+	DateTimeFormatter aFormatter = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd-HH.mm.ss").parseLenient().appendOffset("+HH:MM", "Z").toFormatter();
 	String lastlogin = time.format(aFormatter);
 	userDTO.setLastlogin(lastlogin);
 	userDAO.updateLastLoginTime(userDTO);
@@ -65,9 +65,9 @@ return "invalid";
 public Map<Integer, String> getLanguageDropdownValues(UserDTO userDTO) {
 	try {
 		UserDAO userDAO =new UserDAOImpl();
-		Map<Integer,String> res1=userDAO.getLanguageid_name(userDTO);
-		userDTO.setResults(res1);
-		return res1;
+		Map<Integer,String> languagedropdownvalues=userDAO.getLanguageid_name(userDTO);
+		userDTO.setResults(languagedropdownvalues);
+		return languagedropdownvalues;
 	}
 catch(Exception e) {
 	System.out.println(e); 
@@ -166,9 +166,9 @@ public UserDTO getUserProfileDetail(UserDTO userDTO){
 	try {
 		UserDAO userDAO=new UserDAOImpl();
 		
-		UserDTO res=userDAO.fetchUserProfileDetail(userDTO);
-		userDTO.setRes(res);
-	    return res;	
+		UserDTO profiledetailofuser=userDAO.fetchUserProfileDetail(userDTO);
+		userDTO.setUserProfileDetail(profiledetailofuser);
+	    return profiledetailofuser;	
 		
 	}
 	catch(Exception e) {
@@ -181,7 +181,7 @@ public UserDTO getUserProfileDetail(UserDTO userDTO){
 public ArrayList<UserDTO> getUserDetails(UserDTO userDTO) {
 	try {
 		UserDAO userDAO =new UserDAOImpl();
-		ArrayList<UserDTO> result=userDAO.userDetails(userDTO);
+		ArrayList<UserDTO> result=userDAO.getUserRegisteredDetails(userDTO);
 		userDTO.setResult(result);
 		return result;
 		}

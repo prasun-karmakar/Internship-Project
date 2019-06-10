@@ -111,7 +111,7 @@ body {
 <body>
 
 <form name="form" action="loginRegister" method="post" onsubmit="return validate()">
-<input type="hidden" name="actionType" id="actionType_id" value="reset">
+<input type="hidden" name="actionType" id="actionType_id" value="resetpassword">
 
 <div class="error_div_container">
 <h3 style="color:red;">${message}</h3>
@@ -122,7 +122,7 @@ body {
 			<h3> Reset Password Page :</h3>
 		<input id="username" name="username" type="hidden" value="${messages}">
 			<input type="password" name="password1" class="text_input" placeholder=" password "/> <br/> <br/>
-			<input type="password" name="password2" class="text_input" placeholder="Confirm Password "/><br/> <br/>
+			<input type="password" name="confirmPassword" class="text_input" placeholder="Confirm Password "/><br/> <br/>
 <button name="submit" class="font_style_form rounded_corner" onkeydown="handleEnter(event)">Submit</button> &nbsp;| &nbsp;<input type="button" value ="Cancel" class="font_style_form rounded_corner" onclick="window.location.href='login.jsp'"> <br/> <br/>
 		</div>
 </form>

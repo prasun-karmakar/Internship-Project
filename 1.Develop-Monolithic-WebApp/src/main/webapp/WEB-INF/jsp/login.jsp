@@ -120,7 +120,7 @@ body {
 			<input type="text" name="username" class="text_input" placeholder=" UserName "/> <br/> <br/>
 			<input type="password" name="password" class="text_input" placeholder=" Password "/><br/> <br/>
 			<button name="submit" class="font_style_form rounded_corner" onkeydown="handleEnter(event)">Sign In</button> <br/> <br/>
-			<a href="loginRegister?actionType=register1">New User? Sign Up </a> | <a href="/WEB-INF/jsp/Forgot.jsp"> Forgot Password </a> <br/> <br/> <br/>
+			<a href="loginRegister?actionType=newregister">New User? Sign Up </a> | <a href="/WEB-INF/jsp/Forgot.jsp"> Forgot Password </a> <br/> <br/> <br/>
 			 	
 		</div>
 </form>

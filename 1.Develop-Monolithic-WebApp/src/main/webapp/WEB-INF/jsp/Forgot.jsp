@@ -114,7 +114,7 @@ body {
 <body>
 
 <form name="form" action="loginRegister" method="post" onsubmit="return validate()">
-<input type="hidden" name="actionType" id="actionType_id" value="forgot">
+<input type="hidden" name="actionType" id="actionType_id" value="forgotpassword">
 
 <div class="error_div_container">
 	<h3 style="color:red;">${message}</h3>

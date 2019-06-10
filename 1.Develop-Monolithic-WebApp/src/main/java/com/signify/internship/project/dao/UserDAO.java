@@ -9,7 +9,7 @@ public interface UserDAO
 {
 
 
-	public UserDTO getUserDetails(UserDTO userDTO);
+	public UserDTO getLoginUserDetails(UserDTO userDTO);
 	public String getUsersLastLoginTime(UserDTO userDTO);
 	public String getTimezoneName(UserDTO userDTO);
 	public int updateLastLoginTime(UserDTO userDTO);
@@ -19,7 +19,6 @@ public interface UserDAO
 	public UserDTO validatePasswordRequest(UserDTO userDTO);
 	public int updatePassword(UserDTO userDTO);
 	public int updateUserProfile(UserDTO userDTO);
-	public ArrayList<UserDTO> userDetails(UserDTO userDTO);
 	public UserDTO fetchUserProfileDetail(UserDTO userDTO);
 	public ArrayList<UserDTO> fetchUserList(UserDTO userDTO);
 	public UserDTO fetchUserUpdateProfileDetail(UserDTO userDTO);
@@ -28,6 +27,8 @@ public interface UserDAO
 	public int getDatabaseLanguageId(UserDTO userDTO);
 	public int deleteUsersProfileDetail(UserDTO userDTO);
 	public int updateUserPasswordRequest(UserDTO userDTO);
+	public ArrayList<UserDTO> getUserRegisteredDetails(UserDTO userDTO);
+	
 	
 }
 	

@@ -1,4 +1,142 @@
+function getRegisteredUserList() {
+		    // 1. Instantiate XHR - Start 
 
+		    var xhr; 
+		    if (window.XMLHttpRequest) 
+		        xhr = new XMLHttpRequest(); 
+		    else if (window.ActiveXObject) 
+		        xhr = new ActiveXObject("Msxml2.XMLHTTP");
+		    else 
+		        throw new Error("Ajax is not supported by your browser");
+		    // Instantiate XHR 
+		    
+		    // Handle Response from Server 
+
+		    xhr.onreadystatechange = function () {     
+		            if (xhr.readyState == 4 && xhr.status==200)
+		            {   
+		            	
+		            	var response = JSON.parse(xhr.responseText);
+		            	
+		            	if(null!=response)
+		            	{
+		            		editUserList.style.display='none';
+		            		document.getElementById("deleteUser").style.display = 'none';
+		            		signup_container.style.display='none';
+		            		profileDetail.style.display='none';
+		            		usersList.style.display ='block';
+		            		userProfileDetail.style.display='none';
+		            		resetPassword.style.display='none';
+		            		getUserListForUpdate.style.dispaly='none';
+		            		document.getElementById("resetUserPassword").style.display = "none";
+		            		document.getElementById("usersUpdate").style.display = "none";
+		            		registeredUsers.style.display='block';
+		            		document.getElementById("registeredUsers").style.display = "block";
+							var table="<tr><th>UserName</th><th>Email</th><th>Mobileno</th><th>Timezone</th><th>Language</th></tr>"
+		            		for(var i=0;i<response.length;i++){
+		            		table+="<tr><td>"+response[i].Username+"</td><td>"+response[i].Email+"</td><td>"+response[i].Mobileno+"</td><td>"+response[i].Timezone_id+"</td><td>"+response[i].Language_name+"</td></tr>";
+		            		document.getElementById("usersList").innerHTML=table;
+
+		            		}
+		            }	
+		            		
+		            	else{
+		    				document.getElementById("usersList").style.display = "none";
+		    			}
+
+		             } 
+		    }
+		        
+		    
+		   
+		    xhr.open("POST", "loginRegister", true);
+		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.send("actionType=list_UserRecords");
+		    
+		}
+
+
+
+function getUserProfileDetail() {
+    // 1. Instantiate XHR - Start 
+	
+	usersUpdate.style.display='none';
+    var xhr; 
+    if (window.XMLHttpRequest) 
+        xhr = new XMLHttpRequest(); 
+    else if (window.ActiveXObject) 
+        xhr = new ActiveXObject("Msxml2.XMLHTTP");
+    else 
+        throw new Error("Ajax is not supported by your browser");
+    // Instantiate XHR 
+    
+    // Handle Response from Server 
+
+    xhr.onreadystatechange = function () {     
+            if (xhr.readyState == 4 && xhr.status==200)
+            {
+            	var xmlDoc = xhr.responseXML; 
+            	var i;
+                if(null!=xmlDoc){
+                	
+                	usersList.style.display='none';
+                	editUserList.style.display='none';
+                	signup_container.style.display = 'none';
+                	registeredUsers.style.display='none';
+                	resetPassword.style.display='none';
+                	getUserListForUpdate.style.dispaly='none';
+                	userProfileDetail.style.display='block';
+                	document.getElementById("usersUpdate").style.display = 'none';
+                	document.getElementById("getUserListForUpdate").style.display = 'none';
+                	document.getElementById("deleteUser").style.display = 'none';
+                	document.getElementById("resetUserPassword").style.display = "none";
+    				document.getElementById("profileDetail").style.display = "block";
+
+    				var table="<tr><th>UserID</th><th>Mobileno</th><th>lastlogin</th><th>email</th><th>language_id</th><th>Timezone</th></tr><br />";
+    				var x= xmlDoc.getElementsByTagName("User");
+    				for(i=0;i<x.length;i++){
+    					table+="<tr><td>"+x[i].getElementsByTagName("UserID")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("Mobileno")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("lastlogin")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("email")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("Language_Id")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue+"</td></tr>";
+    					document.getElementById("profileDetail").innerHTML=table;
+    				}
+    				
+	                
+                }
+    				
+    				
+           else{
+    				
+    				document.getElementById("profileDetail").style.display = "none";
+
+    			}
+
+              } 
+        }
+    
+   
+    xhr.open("POST", "loginRegister", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("actionType=myProfile");
+    
+}
+
+function addNewUser(){
+	usersList.style.display='none';
+	signup_container.style.display='none';
+	profileDetail.style.display='none';
+	userProfileDetail.style.display='none';
+	document.getElementById("getUserListForUpdate").style.display = "none";
+	document.getElementById("resetUserPassword").style.display = "none";
+	document.getElementById("resetPassword").style.display = "none";
+	document.getElementById("registeredUsers").style.display = "none";
+	document.getElementById("userProfileDetail").style.display = "none";
+	document.getElementById( "deleteUser").style.display = "none";	
+	document.getElementById("usersUpdate").style.display = "none";
+	document.getElementById("changePassword").style.display = "none";
+	document.getElementById("resetUserPassword").style.display = "none";
+	
+}
+		
+			
 function changePassword() {
 		    // 1. Instantiate XHR - Start 
 	
@@ -21,9 +159,9 @@ function changePassword() {
 		            	
 		            	if(null!=response)
 		            	{
-		            		sampleDiv.style.display='none';
+		            		usersList.style.display='none';
 		            		signup_container.style.display='none';
-		            		ajaxFunc.style.display='none';
+		            		profileDetail.style.display='none';
 		            		userProfileDetail.style.display='none';
 		            		document.getElementById("getUserListForUpdate").style.display = "none";
 		            		document.getElementById("resetUserPassword").style.display = "none";
@@ -64,22 +202,7 @@ function changePassword() {
 		    
 		}
 
-function addNewUser(){
-	sampleDiv.style.display='none';
-	signup_container.style.display='none';
-	ajaxFunc.style.display='none';
-	userProfileDetail.style.display='none';
-	document.getElementById("getUserListForUpdate").style.display = "none";
-	document.getElementById("resetUserPassword").style.display = "none";
-	document.getElementById("resetPassword").style.display = "none";
-	document.getElementById("registeredUsers").style.display = "none";
-	document.getElementById("userProfileDetail").style.display = "none";
-	document.getElementById( "deleteUser").style.display = "none";	
-	document.getElementById("usersUpdate").style.display = "none";
-	document.getElementById("changePassword").style.display = "none";
-	document.getElementById("resetUserPassword").style.display = "none";
-	
-}
+
 
 
 function changeUserPassword(username) {
@@ -158,9 +281,9 @@ function removeUser() {
 		            	
 		            	if(null!=response)
 		            	{
-		            		sampleDiv.style.display='none';
+		            		usersList.style.display='none';
 		            		signup_container.style.display='none';
-		            		ajaxFunc.style.display='none';
+		            		profileDetail.style.display='none';
 		            		registeredUsers.style.display='none';
 		            		resetPassword.style.display='none';
 		            		userProfileDetail.style.display='none';
@@ -184,7 +307,7 @@ function removeUser() {
 		    				
 		    		else{
 		    				
-	    				document.getElementById("jsonFunc").style.display = "none";
+	    				document.getElementById("removeUser").style.display = "none";
 		    			}
 
 		             } 
@@ -218,14 +341,14 @@ function deleteUsersDetail(username) {
 	    xhr.onreadystatechange = function () {     
 	            if (xhr.readyState == 4 && xhr.status==200)
 	            {   
-	            		ajaxFunc.style.display='none';
-	            		jsonFunc.style.display = 'none';
+	            	profileDetail.style.display='none';
+	            	editUserList.style.display = 'none';
 	            		signup_container.style.display='none';
 	            		registeredUsers.style.display='none';
 	            		document.getElementById("usersUpdate").style.display = "none";
 	            		userProfileDetail.style.display='none';
 	            		resetPassword.style.display='none';
-	            		sampleDiv.style.display='none';
+	            		usersList.style.display='none';
 	            		document.getElementById("resetUserPassword").style.display = "none";
 	            		getUserListForUpdate.style.dispaly='none';
 	            	    alert("User Record Deleted Successfully");
@@ -249,11 +372,9 @@ function deleteUsersDetail(username) {
 
 
 
-
-
-function getRegisteredUserList() {
+function getUserList() {
 		    // 1. Instantiate XHR - Start 
-
+	editUserList.style.display='block';
 		    var xhr; 
 		    if (window.XMLHttpRequest) 
 		        xhr = new XMLHttpRequest(); 
@@ -273,131 +394,9 @@ function getRegisteredUserList() {
 		            	
 		            	if(null!=response)
 		            	{
-		            		document.getElementById("deleteUser").style.display = 'none';
+		            		usersList.style.display='none';
 		            		signup_container.style.display='none';
-		            		ajaxFunc.style.display='none';
-		            		userProfileDetail.style.display='none';
-		            		resetPassword.style.display='none';
-		            		getUserListForUpdate.style.dispaly='none';
-		            		document.getElementById("resetUserPassword").style.display = "none";
-		            		document.getElementById("usersUpdate").style.display = "none";
-		            		registeredUsers.style.display='block';
-
-		    				document.getElementById("sampleDiv").style.display = "block";
-							var table="<tr><th>UserName</th><th>Email</th><th>Mobileno</th><th>Timezone</th><th>Language_name</th></tr>"
-		            		for(var i=0;i<response.length;i++){
-		            		table+="<tr><td>"+response[i].Username+"</td><td>"+response[i].Email+"</td><td>"+response[i].Mobileno+"</td><td>"+response[i].Timezone_id+"</td><td>"+response[i].Language_name+"</td></tr>";
-		            		document.getElementById("sampleDiv").innerHTML=table;
-
-		            		}
-		            }	
-		            		
-		            	else{
-		    				document.getElementById("sampleDiv").style.display = "none";
-		    			}
-
-		             } 
-		    }
-		        
-		    
-		   
-		    xhr.open("POST", "loginRegister", true);
-		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhr.send("actionType=list_UserRecords");
-		    
-		}
-		
-		
-				
-					
-		
-		function getUserProfileDetail() {
-		    // 1. Instantiate XHR - Start 
-			
-			usersUpdate.style.display='none';
-		    var xhr; 
-		    if (window.XMLHttpRequest) 
-		        xhr = new XMLHttpRequest(); 
-		    else if (window.ActiveXObject) 
-		        xhr = new ActiveXObject("Msxml2.XMLHTTP");
-		    else 
-		        throw new Error("Ajax is not supported by your browser");
-		    // Instantiate XHR 
-		    
-		    // Handle Response from Server 
-
-		    xhr.onreadystatechange = function () {     
-		            if (xhr.readyState == 4 && xhr.status==200)
-		            {
-		            	var xmlDoc = xhr.responseXML; 
-		            	var i;
-		                if(null!=xmlDoc){
-		                	
-		                	sampleDiv.style.display='none';
-		                	jsonFunc.style.display='none';
-		                	signup_container.style.display = 'none';
-		                	registeredUsers.style.display='none';
-		                	resetPassword.style.display='none';
-		                	getUserListForUpdate.style.dispaly='none';
-		                	userProfileDetail.style.display='block';
-		                	document.getElementById("usersUpdate").style.display = 'none';
-		                	document.getElementById("getUserListForUpdate").style.display = 'none';
-		                	document.getElementById("deleteUser").style.display = 'none';
-		                	document.getElementById("resetUserPassword").style.display = "none";
-		    				document.getElementById("ajaxFunc").style.display = "block";
-
-		    				var table="<tr><th>UserID</th><th>Mobileno</th><th>lastlogin</th><th>email</th><th>language_id</th><th>Timezone</th></tr><br />";
-		    				var x= xmlDoc.getElementsByTagName("User");
-		    				for(i=0;i<x.length;i++){
-		    					table+="<tr><td>"+x[i].getElementsByTagName("UserID")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("Mobileno")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("lastlogin")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("email")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("Language_Id")[0].childNodes[0].nodeValue+"</td><td>"+x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue+"</td></tr>";
-		    					document.getElementById("ajaxFunc").innerHTML=table;
-		    				}
-		    				
-			                
-		                }
-		    				
-		    				
-		           else{
-		    				
-		    				document.getElementById("ajaxFunc").style.display = "none";
-
-		    			}
-
-		              } 
-		        }
-		    
-		   
-		    xhr.open("POST", "loginRegister", true);
-		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhr.send("actionType=myProfile");
-		    
-		}
-		
-		function getUserList() {
-		    // 1. Instantiate XHR - Start 
-			jsonFunc.style.display='block';
-		    var xhr; 
-		    if (window.XMLHttpRequest) 
-		        xhr = new XMLHttpRequest(); 
-		    else if (window.ActiveXObject) 
-		        xhr = new ActiveXObject("Msxml2.XMLHTTP");
-		    else 
-		        throw new Error("Ajax is not supported by your browser");
-		    // Instantiate XHR 
-		    
-		    // Handle Response from Server 
-
-		    xhr.onreadystatechange = function () {     
-		            if (xhr.readyState == 4 && xhr.status==200)
-		            {   
-		            	
-		            	var response = JSON.parse(xhr.responseText);
-		            	
-		            	if(null!=response)
-		            	{
-		            		sampleDiv.style.display='none';
-		            		signup_container.style.display='none';
-		            		ajaxFunc.style.display='none';
+		            		profileDetail.style.display='none';
 		            		userProfileDetail.style.display='none';
 		            		resetPassword.style.display='none';
 		            		registeredUsers.style.display='none';
@@ -405,7 +404,7 @@ function getRegisteredUserList() {
 		            		deleteUser.style.display = 'none';
 		            		document.getElementById("usersUpdate").style.display = 'none';
 		            		document.getElementById("resetUserPassword").style.display = "none";
-		            		jsonFunc.style.display='block';
+		            		editUserList.style.display='block';
 		            		
 		    				
 							
@@ -413,7 +412,7 @@ function getRegisteredUserList() {
 		            		for(var i=0;i<response.length;i++){
 		            		    
 		            		    table+="<tr><td>"+response[i].Username+"</td><td>"+"<a href='#' onclick='updateUsersDetail(\""+response[i].Username+"\")'>edit</a>"+"</td></tr>";
-		            		    document.getElementById("jsonFunc").innerHTML=table;
+		            		    document.getElementById("editUserList").innerHTML=table;
 
 		            		}
 		            }	
@@ -423,7 +422,7 @@ function getRegisteredUserList() {
 		    				
 		    		else{
 		    				
-	    				document.getElementById("jsonFunc").style.display = "none";
+	    				document.getElementById("editUserList").style.display = "none";
 		    			}
 
 		             } 
@@ -460,16 +459,15 @@ function getRegisteredUserList() {
 			            	
 			            	if(null!=response)
 			            	{
-			            		ajaxFunc.style.display='none';
-			            		jsonFunc.style.display = 'none';
+			            		profileDetail.style.display='none';
+			            		editUserList.style.display = 'none';
 			            		registeredUsers.style.display='none';
 			            		userProfileDetail.style.display='none';
 			            		getUserListForUpdate.style.dispaly='none';
 			            		document.getElementById("resetUserPassword").style.display = "none";
-			            		signup_container.style.display='block';
 			            		document.getElementById("usersUpdate").style.display = "none";
-
-			            		sampleDiv.style.display='none';
+			            		signup_container.style.display='block';
+			            		usersList.style.display='none';
 			            		
 			            		
 			            		/*var table="<tr><th>UserID</th><th>Email</th><th>Password</th><th>Mobileno</th></tr>";*/

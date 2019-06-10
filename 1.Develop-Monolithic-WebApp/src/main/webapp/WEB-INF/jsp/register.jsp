@@ -5,8 +5,8 @@
 <%@ page import= "java.util.Map"%>
 <%@ page import="com.signify.internship.project.controller.UserServlet" %>
 <%@ page import="com.signify.internship.project.dto.UserDTO" %>
-<% Map<Integer,String> results=(HashMap<Integer,String>)request.getAttribute("results");%>
-<% Map<Integer,String> res=(HashMap<Integer,String>)request.getAttribute("resu");%>
+<% Map<Integer,String> results=(HashMap<Integer,String>)request.getAttribute("timezonedropdownvalues");%>
+<% Map<Integer,String> res=(HashMap<Integer,String>)request.getAttribute("languagedropdownvalues");%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -174,7 +174,7 @@ a:active {
   
 			
 	<form name="form" action='loginRegister' method="post" onsubmit="return validate()">
-	<input type="hidden" name="actionType" id="actionType_id" value="register2">
+	<input type="hidden" name="actionType" id="actionType_id" value="confirmRegistration">
 	
 	  <img src="Signify_3.png" alt="Signify_logo" style="width: 100%; height: 145px; padding-bottom: 10px;"/> <br/>
 	<h3> New User Registration: </h3>
@@ -185,7 +185,7 @@ a:active {
     
 		<input type="text" name="username" class="text_input extra_text_input" placeholder="UserName"/> <br/> <br/>
 		<input type="password" name="password" class="text_input extra_text_input" placeholder="Password"/> <br/> <br/>
-		<input type="password" name="password1" class="text_input extra_text_input" placeholder="Confirm Password"/> <br/> <br/>
+		<input type="password" name="registerconfirmpassword" class="text_input extra_text_input" placeholder="Confirm Password"/> <br/> <br/>
 		<input type="email" name="email" class="text_input extra_text_input" placeholder="email"/><br/><br />
 		<input type="text" name="mobileno" class="text_input extra_text_input" placeholder=" Mobile number "/> <br/> <br/>
 		
@@ -201,6 +201,7 @@ a:active {
         
         <div style="height: 5px;">
 		<select id="language_id" name="language_id" style="width:70%" >
+		<option value="none">Select</option> 
          <% for(Map.Entry<Integer, String> entry: res.entrySet()) {
          Integer language_id=entry.getKey();
          String language_name=entry.getValue();%>

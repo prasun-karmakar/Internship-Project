@@ -34,55 +34,51 @@ public class UserServlet extends HttpServlet {
 		if (actionType.equals("login")) {
 			processLoginRequestParameter(request, response);
 		} 
-		else if (actionType.equals("Forgotpwd")) {
-			processForgotPwdRequestParameter(request, response);
-		}
 		
-		else if (actionType.equals("updatePassword")) {
-			processUpdatePwdRequestParameter(request, response);
-		}
-
 		else if (actionType.equals("newregister")) {//newRegistraionReq
 			processRegisterRequestParameter(request, response);
 		}
-		else if (actionType.equals("register2")) {
+		else if (actionType.equals("confirmRegistration")) {
 			ProcessRegisterConfirmRequestParameter(request, response);
 		}
-		else if (actionType.equals("forgot")) {
+		else if (actionType.equals("Forgotpasswordpage")) {
+			processForgotPasswordPage(request, response);
+		}
+		else if (actionType.equals("forgotpassword")) {
 			ProcessForgotPasswordRequestParameter(request, response);
 		}
-		else if (actionType.equals("reset")) {
+		else if (actionType.equals("resetpassword")) {
 			ProcessResetPasswordRequestParameter(request, response);
 		}
-		else if (actionType.equals("update")) {
-			ProcessUserUpdateRecordRequestParameter(request, response);
-		}
-
 		else if(actionType.equals("list_UserRecords")) {
-			ProcessUserRecordRequestParameter(request,response);
+			ProcessUsersRecordRequestParameter(request,response);
 		}
 		else if(actionType.equals("myProfile")) {
 		    ProcessUserProfileRequestParameter(request,response);	
-		}
-		else if(actionType.equals("updateRecords")) {
-			ProcessUserUpdateRequestParameter(request,response);
 		}
 		else if(actionType.equals("deleteRecords")) {
 			ProcessUserDeleteRequestParameter(request,response);
 		}
 		
-		
+		else if (actionType.equals("updatePassword")) {
+			processUpdatePasswordRequestParameter(request, response);
+		}
+		else if (actionType.equals("update")) {
+			ProcessUserUpdateRecordRequestParameter(request, response);
+		}
+		else if(actionType.equals("updateRecords")) {
+			ProcessUserUpdateRequestParameter(request,response);
+		}
 		else if(actionType.equals("editUserProfile")) {
 		    ProcessEditUserProfileRequestParameter(request,response);	
 		}
-		
 		else if (actionType.equals("logout")) {
 		    ProcessLogoutRequestParameter(request, response);
 		}
 	}
 	
 	
-	private void  processUpdatePwdRequestParameter(HttpServletRequest request, HttpServletResponse response)
+	private void  processUpdatePasswordRequestParameter(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		UserDTO userDTO = new UserDTO();
 		UserService userService=new UserService();
@@ -142,17 +138,13 @@ public class UserServlet extends HttpServlet {
 			session.setAttribute("username",username);
 			session.setMaxInactiveInterval(1*60);
 			userService.getLastLoginTime(userDTO);
-			session.setAttribute("value", userDTO.getZonedDateTime());
+			session.setAttribute("Lastlogin", userDTO.getZonedDateTime());
 			userService.getTimezoneData(userDTO);
-			session.setAttribute("username",username);
-			/*String username = (String)request.getAttribute("un");
-		    session.setAttribute("UserName", username);*/
-			Map<Integer,String> results = userService.getTimezoneDropdownValues(userDTO);
-			Map<Integer,String> res1 = userService.getLanguageDropdownValues(userDTO);
+			Map<Integer,String> timezone_list = userService.getTimezoneDropdownValues(userDTO);
+			Map<Integer,String> language_list = userService.getLanguageDropdownValues(userDTO);
 			int languageid=userService.getLanguageId(userDTO);
-			request.setAttribute("language_id",languageid);
-			request.setAttribute("language_list", res1);
-			request.setAttribute("timezone_list", results);
+			request.setAttribute("language_list",language_list);
+			request.setAttribute("timezone_list",timezone_list);
 			session.setAttribute("language_id",languageid);
 			request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
 
@@ -251,53 +243,10 @@ public class UserServlet extends HttpServlet {
 			   response.setCharacterEncoding("UTF-8"); 
 			   response.getWriter().write(Document.toString()); 
 				
-
-
-			  // return Document.toString();
 			}
-		        /* StringWriter stringWriter = new StringWriter();
-
-		         XMLOutputFactory xMLOutputFactory = XMLOutputFactory.newInstance();
-		         XMLStreamWriter xMLStreamWriter =xMLOutputFactory.createXMLStreamWriter(stringWriter);
-		   
-		         xMLStreamWriter.writeStartDocument();
-		         xMLStreamWriter.writeStartElement("MyProfile");
-		   
-		         xMLStreamWriter.writeStartElement("User");	
-		         xMLStreamWriter.writeAttribute("id", userDTO.getUsername());
-		      
-		         xMLStreamWriter.writeStartElement("mobileno");
-		         xMLStreamWriter.writeCharacters(userDTO.getMobileno());
-		         xMLStreamWriter.writeEndElement();
-
-		         xMLStreamWriter.writeStartElement("lastlogin");			
-		         xMLStreamWriter.writeCharacters(userDTO.getLastlogin());
-		         xMLStreamWriter.writeEndElement();
-		         
-		         xMLStreamWriter.writeStartElement("email");
-		         xMLStreamWriter.writeCharacters(userDTO.getEmail());
-		         xMLStreamWriter.writeEndElement();
-
-		         xMLStreamWriter.writeEndElement();
-		         xMLStreamWriter.writeEndDocument();
-
-		         xMLStreamWriter.flush();
-		         xMLStreamWriter.close();
-
-		         String xmlString = stringWriter.getBuffer().toString();
-
-		         stringWriter.close();
-
-		         System.out.println(xmlString);
-
-		      } catch (XMLStreamException e) {
-		         e.printStackTrace();
-		      } catch (IOException e) {
-		         e.printStackTrace();
-		      }*/
-		   
+		        		   
 	
-	private void  ProcessUserRecordRequestParameter(HttpServletRequest request, HttpServletResponse response)
+	private void  ProcessUsersRecordRequestParameter(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		UserDTO userDTO = new UserDTO();
 		UserService userService=new UserService();
@@ -306,8 +255,7 @@ public class UserServlet extends HttpServlet {
         sb.append("[");
 	    for(int count=0;count<result.size();count++)
 		{
-		 UserDTO userDTO1=(UserDTO)result.get(count);	
-		//string str = "\"ugjhjnhjknkjk\"";
+		 UserDTO userDTO1=(UserDTO)result.get(count);//string str = "\"ugjhjnhjknkjk\"";
 		 	sb.append("{");
 			sb.append("\"Username\":"+"\""+userDTO1.getUsername().trim()+"\",");
 			sb.append("\"Email\":"+"\""+userDTO1.getEmail()+"\",");
@@ -342,8 +290,7 @@ public class UserServlet extends HttpServlet {
         {	
         request.setAttribute("messages",userDTO.getUsername());
     	request.getRequestDispatcher("/WEB-INF/jsp/resetpassword.jsp").forward(request, response);
-		
-        }
+		}
         else {
         	
         	request.setAttribute("message", "Data Not Found,click on Register !!!");
@@ -352,7 +299,7 @@ public class UserServlet extends HttpServlet {
         }
 	}
 	
-	private void processForgotPwdRequestParameter(HttpServletRequest request, HttpServletResponse response)
+	private void processForgotPasswordPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/jsp/Forgot.jsp").forward(request, response);
 		
@@ -375,10 +322,10 @@ public class UserServlet extends HttpServlet {
 	
 		UserDTO userDTO = new UserDTO();
 		UserService userService=new UserService();
-		Map<Integer,String> results = userService.getTimezoneDropdownValues(userDTO);
-		Map<Integer,String> res1 = userService.getLanguageDropdownValues(userDTO);
-		request.setAttribute("resu", res1);
-		request.setAttribute("results", results);
+		Map<Integer,String> timezonedropdownvalues = userService.getTimezoneDropdownValues(userDTO);
+		Map<Integer,String> languagedropdownvalues = userService.getLanguageDropdownValues(userDTO);
+		request.setAttribute("languagedropdownvalues", languagedropdownvalues);
+		request.setAttribute("timezonedropdownvalues",timezonedropdownvalues);
 		request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
 
 	}
@@ -389,10 +336,9 @@ public class UserServlet extends HttpServlet {
 		
 		UserDTO userDTO = new UserDTO();
 		UserService userService=new UserService();
-		
 		userDTO.setUsername(request.getParameter("username"));
 		userDTO.setPassword(request.getParameter("password"));
-		userDTO.setPassword1(request.getParameter("password1"));
+		userDTO.setRegisterconfirmpassword(request.getParameter("registerconfirmpassword"));
 		userDTO.setEmail(request.getParameter("email"));
 		userDTO.setMobileno(request.getParameter("mobileno"));
 		userDTO.setTimezone_id(request.getParameter("name"));
@@ -418,7 +364,7 @@ public class UserServlet extends HttpServlet {
 		UserDTO userDTO = new UserDTO();
 		UserService userService=new UserService();
 		userDTO.setUsername(request.getParameter("username"));
-		userDTO.setPassword2(request.getParameter("password2"));
+		userDTO.setConfirmPassword(request.getParameter("confirmPassword"));
 		userService.updatePasswordRequest(userDTO);
 		request.setAttribute("successMessage", "Password set,please login to continue!!!");
 		request.getRequestDispatcher("login.jsp").forward(request, response);

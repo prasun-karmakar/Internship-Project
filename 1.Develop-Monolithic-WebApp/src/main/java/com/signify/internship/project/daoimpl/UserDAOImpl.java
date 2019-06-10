@@ -66,7 +66,7 @@ public class UserDAOImpl implements UserDAO {
 			}
 
 	
-	public ArrayList<UserDTO> userDetails(UserDTO userDTO)
+	public ArrayList<UserDTO> getUserRegisteredDetails(UserDTO userDTO)
 	{   
 		UserDTO userDTOResult=null;
 		ArrayList<UserDTO> UserRec=new ArrayList<>();
@@ -137,14 +137,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 		
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public UserDTO fetchUserProfileDetail(UserDTO userDTO) {
 		UserDTO userDTOResult=null;
 	try {
@@ -179,7 +172,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	public Map<Integer, String> getLanguageid_name(UserDTO userDTO) {
 
-		Map<Integer, String> res1 = new HashMap<Integer, String>();
+		Map<Integer, String> languagedropdownvalues = new HashMap<Integer, String>();
 		try {
 			con = DBManager.getCon();
 			ps = con.prepareStatement("SELECT language_id,language_name FROM user_language");
@@ -187,15 +180,15 @@ public class UserDAOImpl implements UserDAO {
 			while (rs.next()) {
 				Integer column1 = rs.getInt("language_id");
 				String column2 = rs.getString("language_name");
-				res1.put(column1, column2);
-				userDTO.setResults(res1);
+				languagedropdownvalues.put(column1, column2);
+				userDTO.setResults(languagedropdownvalues);
 
 			}
 			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return res1;
+		return languagedropdownvalues;
 	}
 
 
@@ -220,7 +213,7 @@ public class UserDAOImpl implements UserDAO {
 		return results;
 	}
 
-	public UserDTO getUserDetails(UserDTO userDTO) {
+	public UserDTO getLoginUserDetails(UserDTO userDTO) {
 
 		UserDTO userDTOResult=null;
 		try {
@@ -373,7 +366,7 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			con = DBManager.getCon();
 			ps = con.prepareStatement("UPDATE users_detail SET password=? where username=?");
-			ps.setString(1, userDTO.getPassword2());
+			ps.setString(1, userDTO.getConfirmPassword());
 			ps.setString(2, userDTO.getUsername());
 			status = ps.executeUpdate();
 			con.close();
@@ -396,9 +389,7 @@ public class UserDAOImpl implements UserDAO {
 				String usernameDB = rs.getString("username").trim();
 				userDTOResult=new UserDTO();
 				userDTOResult.setUsername(usernameDB);
-				//if (username.equals(usernameDB1)) {
-					//return true;
-				//}
+				
 			}
 			con.close();
 		} catch (Exception e) {
