@@ -16,9 +16,6 @@ public class UserDTO
 	public String timezone_id;
 	public String confirmPassword;
 	public UserDTO userProfileDetail;
-	
-	
-	
 	public Integer language_id1;
 	public String language_name;
 	public String newpassword;
@@ -113,15 +110,6 @@ public class UserDTO
 	public void setRes(UserDTO res) {
 		this.res = res;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -165,8 +153,6 @@ public class UserDTO
 		this.resultauth = resultauth;
 	}
 	
-	
-	
 	public String getZonedDateTime() {
 		return ZonedDateTime;
 	}
@@ -179,8 +165,6 @@ public class UserDTO
 	public void setTime_id(String time_id) {
 		this.time_id = time_id;
 	}
-	
-	
 	
 	public Integer getLanguage_id1() {
 		return language_id1;
