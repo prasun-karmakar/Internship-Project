@@ -12,8 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.signify.internship.project.dto.UserDTO;
 import com.signify.internship.project.model.UserService;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+
 
 @WebServlet("/loginRegister")
 
