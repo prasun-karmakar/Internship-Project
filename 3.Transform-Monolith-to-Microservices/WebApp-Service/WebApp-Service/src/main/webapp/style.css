@@ -1,0 +1,378 @@
+table {
+    margin: 0 auto; /* or margin: 0 auto 0 auto */
+  }
+
+		html { 
+			background: url(home_bg.bmp) no-repeat center fixed; 
+			background-size: cover;
+		}
+
+		body {
+			font: 17px Montserrat, sans-serif;
+			line-height: 1;
+			color: #f5f6f7;
+			
+		}
+		ul li{
+               padding:20px;
+               border-bottom:2pxsolid grey;}
+
+        ul li:hover{
+               background:#bdc3c7;
+               color:white;}
+		
+		/* Remove bullets */
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.container-fluid {
+			position: relative;
+		}
+		
+		.side_nav {
+			width: 18%;
+			background-color:hsla(156, 100%, 50%, 0.5);
+			height: 915px;
+		}
+		
+		.side_nav_top {
+		
+		}
+		
+		.side_nav_bottom {
+		
+		}
+		#signup_container{  
+	    padding:25px;  
+	    border:1px solid pink;  
+	    border-radius:20px;  
+	    width:300px;
+	    margin-top:60px;  
+		margin: 0 auto;
+	
+		}  
+		#resetPassword{
+		padding:25px;  
+	    border:1px solid pink;  
+	    border-radius:20px;  
+	    width:300px;
+	    margin-top:60px;  
+		margin: 0 auto;
+		position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display:none;
+		}
+		
+		#deleteUser{
+		padding:30px;  
+	    border:1px solid pink;  
+	    border-radius:20px;  
+	    width:250px;
+	    margin-top:60px;  
+		margin: 0 auto;
+		position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display:none;
+		}
+		
+		#removeUser{
+		margin-top: 50px;
+		display:"none";
+	    width: 100%;
+        padding: 50px 0;
+        margin: 0 auto;
+		text-align: center;
+  		border-collapse : collapse;
+		
+		}
+		
+		#changePassword{
+		margin-top: 50px;
+		display:"none";
+	    width: 100%;
+        padding: 50px 0;
+        margin: 0 auto;
+		text-align: center;
+  		border-collapse : collapse;
+		}
+		
+		#resetUserPassword{
+		padding:30px;  
+	    border:1px solid pink;  
+	    border-radius:20px;  
+	    width:250px;
+	    margin-top:60px;  
+		margin: 0 auto;
+		position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display:none;
+		}
+		
+		
+		#getUserListForUpdate{
+		padding:30px;  
+	    border:1px solid pink;  
+	    border-radius:20px;  
+	    width:250px;
+	    margin-top:60px;  
+		margin: 0 auto;
+		position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display:none;
+		}
+		
+		#userProfileDetail{
+		padding:30px;  
+	    border:1px solid pink;  
+	    border-radius:20px;  
+	    width:660px;
+	    margin-top:60px;  
+		margin: 0 auto;
+		position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		transform: translate(-60%, -60%);
+		display:none;
+		
+        }
+		
+	
+		#registeredUsers{
+		padding:50px;  
+	    border:1px solid pink;  
+	    border-radius:20px;  
+	    width:700px;
+	    margin-top:60px;  
+		margin: 0 auto;
+		position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		transform: translate(-60%, -60%);
+		display:none;
+
+	
+		}
+		
+		.formheading{  
+	    background-color:gray;  
+    	color:white;  
+    	padding:4px;  
+    	text-align:center; 
+	     
+		}
+		  
+		.sub{  
+		background-color:gray;  
+		padding: 7px 40px 7px 40px;  
+		color:white;  
+		font-weight:bold;  
+		margin-left:70px;  
+		border-radius:5px; 
+		}  
+		
+		.page {
+			width: 81%;
+			position: absolute;
+			right: 8px;
+			top: 0px;
+			height: 150px;
+			
+		}
+		
+		.page_header {
+			position: absolute;
+			width: 100%;
+			height: 150px;
+		}
+		
+		.page_body {
+			position: absolute;
+			width: 100%;
+			right: 0px;
+			top: 235px;
+			background-color:hsla(156, 100%, 50%, 0.5);
+			height: 680px;
+		}
+		 
+		.nav_image_div {
+			width: 100%;
+			background-size: cover;
+			height: 280px;
+		}
+		.navigation{
+		font: 17px Montserrat, sans-serif;
+		
+		}
+		
+		#updateList{
+		display:"none";
+	     width: 100%;
+         text-align: center;
+         margin-top: 1px;
+		
+		}
+		
+		#usersList{
+		margin-top: 50px;
+		display:"none";
+	    width: 100%;
+        padding: 50px 0;
+        margin: 0 auto;
+		text-align: center;
+  		border-collapse : collapse;
+		
+		}
+		
+		#deleteUserRecord{
+		display:"none";
+	     width: 100%;
+         text-align: center;
+         margin-top: 1px;
+         position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		display:none;
+		font-size: 25px;
+		}
+		
+		#deleteUserProfile{
+		margin-top: 50px;
+		display:"none";
+	    width: 50%;
+        padding: 50px 0;
+        margin: 0 auto;
+		text-align: center;
+  	
+		
+		}
+		
+		
+		
+		#editUserList{
+		margin-top: 50px;
+		display:"none";
+	    width: 100%;
+        padding: 50px 0;
+        margin: 0 auto;
+		text-align: center;
+  		border-collapse : collapse;
+  		}
+  		
+  		#usersUpdate{
+		
+		position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		display:none;
+		font-size: 25px;
+		padding:50px;  
+	    border:1px solid pink;  
+	    border-radius:20px;  
+	    width:300px;
+	    margin-top:60px;  
+		margin: 0 auto;
+		position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		transform: translate(-60%, -60%);
+		display:none;
+		}
+		
+		
+		
+		#signup_container{
+		position: absolute;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display:none;
+		}
+		
+		#profileDetail{
+		margin-top: 50px;
+		display:"none";
+	    width: 100%;
+        padding: 50px 0;
+        margin: 0 auto;
+		text-align: center;
+  		border-collapse : collapse;
+		
+		}
+		
+		table#editUser{
+		margin-top: 20px;
+		display:"none";
+	    width: 50%;
+        padding: 50px 0;
+        margin: 0 auto;
+		text-align: center;
+  		border-collapse: collapse;
+		}
+		
+		.text_input {
+		width: 90%;
+		height: 25px;
+		font: 17px Montserrat, sans-serif;
+		}
+
+		.extra_text_input {
+		width: 90%;
+		}
+		
+		
+		
+		th,td {
+		display:"none";
+		border : 1px solid black;
+		margin: 0 auto;
+  		text-align: center;
+  		border-collapse: collapse;
+		padding: 5px;
+		}
+		
+
+		img {	
+			width: 100%;
+			height: 230px;
+		}
+		
+		.topright {
+		  position: absolute;
+		  top: 8px;
+		  right: 16px;
+		  font-size: 20px;
+		}
+		
+		.topleft {
+		  position: absolute;
+		  top: 8px;
+		  left: 16px;
+		  font-size: 30px;
+		}
+		.table .thead-light th {
+ 		  color: #401500;
+ 		  background-color: #FFDDCC;
+          border-color: #792700;
+        }
+			
