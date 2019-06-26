@@ -20,9 +20,9 @@ import com.signify.internshipproject.notificationservice.model.Email;
 
 public class EmailService {
 	public boolean sendEmail(Email info) {
-	
+			boolean status=false;
 			final String username = "write2sindhumr@gmail.com";
-			final String password = "kavya123";
+			final String password = "kavya";
 			String toAddress=info.getEmailid();
 			String msg=info.getMsg();
 
@@ -57,13 +57,13 @@ public class EmailService {
 
 				Transport.send(message);
 
-			return true;
+			status=true;
 
 			} catch (MessagingException e) {
 				
 				throw new RuntimeException(e);
 
 			}
-		
+		return status;
 		}
 	}

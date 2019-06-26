@@ -10,16 +10,17 @@ public class NotificationServiceHandlerImpl implements NotificationServiceHandle
 	@Override
 	public boolean sendEmail(Email info) {
 		// TODO Auto-generated method stub
+		boolean status=false;
 		try {
 			EmailService email=new EmailService();
 			email.sendEmail(info);
-			
+			status=true;
 			
 		}
 		catch(Exception e) {
 			System.out.println(e);
 		}
-		return true;
+		return status;
 	}
 
 	
