@@ -1,4 +1,4 @@
-package com.signify.internshipproject.model;
+package com.signify.internshipproject.useridentityservice.model;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Response {
