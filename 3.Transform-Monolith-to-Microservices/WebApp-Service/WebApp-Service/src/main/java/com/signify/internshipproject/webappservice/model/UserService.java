@@ -97,7 +97,7 @@ public boolean updateUserProfileRequest(UserDTO userDTO) {
 	
 }
 
-public boolean forgotPasswordRequest(UserDTO userDTO) {
+public boolean getForgotPasswordRequest(UserDTO userDTO) {
 	boolean result=false;
 	RestClient restClient=new RestClient();
 	result=restClient.getForgotPassword(userDTO);
@@ -166,13 +166,13 @@ public boolean updateUserInfo(UserDTO userDTO) {
 	
 
 
-public boolean getLanguageId(UserDTO userDTO) {
+public int getLanguageId(UserDTO userDTO) {
 	// TODO Auto-generated method stub
-	boolean result=false;
 	 RestClient restClient=new RestClient();
 
-	result=restClient.getDatabaseLanguageId(userDTO);
-	     return result;
+	 int result=restClient.getDatabaseLanguageId(userDTO);
+	 
+	 return result;
 
 	}
 

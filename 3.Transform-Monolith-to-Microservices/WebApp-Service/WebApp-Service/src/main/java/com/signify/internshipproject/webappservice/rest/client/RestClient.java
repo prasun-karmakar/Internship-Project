@@ -137,9 +137,9 @@ public class RestClient {
 	}
 
 
-	public boolean getDatabaseLanguageId(UserDTO userDTO) {
+	public int getDatabaseLanguageId(UserDTO userDTO) {
 		// TODO Auto-generated method stub
-		boolean status=false;
+		int status=0;
 		//Invoke REST API
 		return status;
 	}
