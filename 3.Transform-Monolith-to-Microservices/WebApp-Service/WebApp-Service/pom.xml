@@ -32,6 +32,26 @@
 	    <version>4.0.1</version>
 	    <scope>provided</scope>
 	</dependency>
+	
+	<dependency>
+	    <groupId>org.glassfish.jersey.core</groupId>
+	    <artifactId>jersey-client</artifactId>
+	    <version>2.25.1</version>
+	</dependency>
+
+    <dependency>
+	    <groupId>org.glassfish.jersey.media</groupId>
+	    <artifactId>jersey-media-json-jackson</artifactId>
+	    <version>2.25.1</version>
+	</dependency>
+	
+	<dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.8.11</version>
+    </dependency> 
+ 
+	
   </dependencies>
 
   <build>
