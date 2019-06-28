@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.ws.rs.core.Response;
+
 import com.signify.internshipproject.webappservice.dao.UserDAO;
 import com.signify.internshipproject.webappservice.daoimpl.UserDAOImpl;
 import com.signify.internshipproject.webappservice.dto.UserDTO;
@@ -14,18 +16,38 @@ import com.signify.internshipproject.webappservice.rest.client.RestClient;
 public class UserService {
 	
 	public boolean authenticateUser(UserDTO userDTO) {
-		boolean result=false;
+		boolean status=false;
+		try {
 		RestClient restClient=new RestClient();
-		result=restClient.authenticateUser(userDTO);
-		
-			/*UserDAO userDAO=new UserDAOImpl();
-			UserDTO result=userDAO.getLoginUserDetails(userDTO);*/
-		
-		return result;
-			
+		status=restClient.authenticateUser(userDTO);
 		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return status;
+	
+}
+	/*
+boolean status=false;
+try {
+	RestClient restClient=new RestClient();
+    restClient.registerconfirmdetails(userDTO) ;
+	status=true;
+	}
+	catch(Exception e) {
+		System.out.println(e);
+	}
+	return status;
 
 	
+	
+	
+	
+	
+	
+	
+	
+	*/
 public boolean getLastLoginTime(UserDTO userDTO) {
 	
 			boolean result=false;
@@ -73,11 +95,16 @@ public Map<Integer, String> getTimezoneDropdownValues(UserDTO userDTO) {
 
 
 public boolean registerUserDetails(UserDTO userDTO) {
-	
-	boolean result=false;
+	boolean status=false;
+try {
 	RestClient restClient=new RestClient();
-	result=restClient.registerconfirmdetails(userDTO);
-	return result;
+    restClient.registerconfirmdetails(userDTO) ;
+	status=true;
+	}
+	catch(Exception e) {
+		System.out.println(e);
+	}
+	return status;
 	
 }
 

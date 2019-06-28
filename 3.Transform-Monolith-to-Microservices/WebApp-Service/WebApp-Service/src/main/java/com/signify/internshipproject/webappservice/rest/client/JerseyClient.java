@@ -23,7 +23,9 @@ public class JerseyClient {
          public Response createJsonEmail(Email info) { 
         		return client.target(REST_URI).request(MediaType.APPLICATION_JSON).post(Entity.entity(info, MediaType.APPLICATION_JSON)); 
 	    
-         } 
+         }
+
+		
  
 }   
 

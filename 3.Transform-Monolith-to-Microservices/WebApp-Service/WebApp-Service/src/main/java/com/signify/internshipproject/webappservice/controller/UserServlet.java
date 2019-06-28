@@ -134,7 +134,7 @@ public class UserServlet extends HttpServlet {
 	
 
 		if (status) {
-			HttpSession session=request.getSession();
+			/*HttpSession session=request.getSession();
 			session.setAttribute("username",username);
 			session.setMaxInactiveInterval(1*60);
 			userService.getLastLoginTime(userDTO);
@@ -145,12 +145,12 @@ public class UserServlet extends HttpServlet {
 			int languageid=userService.getLanguageId(userDTO);
 			request.setAttribute("language_list",language_list);
 			request.setAttribute("timezone_list",timezone_list);
-			session.setAttribute("language_id",languageid);
+			session.setAttribute("language_id",languageid);*/
 			request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
 
 			
 		} else {
-			request.setAttribute("message", "Data Not Found,click on Register !!!");
+			/*request.setAttribute("message", "Data Not Found,click on Register !!!");*/
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 
 		}
@@ -345,17 +345,17 @@ public class UserServlet extends HttpServlet {
 		userDTO.setLanguage_id(request.getParameter("language_id"));
 		
 		boolean status=userService.registerUserDetails(userDTO);
-		if(status) {
+		/*if(status) {
 			
 			request.setAttribute("message","Username already exists,please register with a different username");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
-		else {
+		else {*/
 			userService.insertUserDetails(userDTO);
 			request.setAttribute("successMessage", "Registration done,please login to continue!!!");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
-	}
+
 			
 		
 	
