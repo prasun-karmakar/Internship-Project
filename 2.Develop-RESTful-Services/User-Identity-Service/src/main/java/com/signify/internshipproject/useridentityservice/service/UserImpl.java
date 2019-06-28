@@ -8,9 +8,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.signify.internshipproject.useridentityservice.dto.UserDTO;
-import com.signify.internshipproject.useridentityservice.model.Response;
 import com.signify.internshipproject.useridentityservice.model.UserInfo;
 import com.signify.internshipproject.useridentityservice.model.UserLastlogin;
 import com.signify.internshipproject.useridentityservice.model.UserRegisterInfo;
@@ -71,7 +71,7 @@ public class UserImpl implements UserService {
     @Path("/registerconfirm")
 	public Response registerUserDetails(UserRegisterInfo userReg) { //Register confirm
 		UserDTO userDTO = new UserDTO();
-		Response response = new Response();
+	
 		RestHandler info=new RestHandler();
 		userDTO.setUsername(userReg.getUsername());
 		userDTO.setPassword(userReg.getPassword());
@@ -82,9 +82,7 @@ public class UserImpl implements UserService {
 		userDTO.setLanguage_id(userReg.getLanguage_id());
 		boolean status=info.registerUserDetails(userDTO);
 		System.out.println(status); 
-		response.setStatus(true);
-		response.setMessage("Person created successfully");
-		return response;
+		return Response.status(200).entity(status).build();
 	} 
 	
 	
@@ -92,15 +90,12 @@ public class UserImpl implements UserService {
 	@GET
     @Path("/{username}/delete")
 	public Response deletePerson(@PathParam("username") String username) { //DeleteRecords
-		Response response = new Response();
 		UserDTO userDTO = new UserDTO();
 		RestHandler info=new RestHandler();
 		userDTO.setUsername(username);
 		boolean status=info.deleteUserDetail(userDTO);
 		System.out.println(status);
-		response.setStatus(true);
-		response.setMessage("Person deleted successfully");
-		return response;
+		return Response.status(200).entity(status).build();
 	}
 	
 	@Override
@@ -108,7 +103,7 @@ public class UserImpl implements UserService {
 	@Path("/{username}/update")
 	public Response updateUserDetail(@PathParam("username") String username,UserRegisterInfo userReg) { //editUserDetails in submission
 		UserDTO userDTO = new UserDTO();
-		Response response = new Response();
+		
 		RestHandler info=new RestHandler();
 		userDTO.setUsername(userReg.getUsername());
 		userDTO.setPassword(userReg.getPassword());
@@ -119,9 +114,7 @@ public class UserImpl implements UserService {
 		userDTO.setLanguage_id(userReg.getLanguage_id());
 		boolean status=info.editUserDetails(userDTO);
 		System.out.println(status); 
-		response.setStatus(true);
-		response.setMessage("Person profile updated successfully");
-		return response;
+		return Response.status(200).entity(status).build();
 }
 	
 	@Override
@@ -143,25 +136,20 @@ public class UserImpl implements UserService {
     @Path("/authenticateuser")
 	public Response authenticatelogincredentials(UserDTO userDTO) { //Login authentication
 		
-		Response response = new Response();
+		
 		RestHandler info=new RestHandler();
 		userDTO.setUsername(userDTO.getUsername());
 		userDTO.setPassword(userDTO.getPassword());
 		boolean status=info.authenticateuserlogin(userDTO);
 		System.out.println(status); 
 		if(status) {
-			response.setStatus(true);
-			response.setMessage("Successfully authenticated");
-			}
-			else
-			{
-			
-				response.setMessage("Data not found");
-				response.setStatus(false);
-			}
-			return response;
-			} 
+		return Response.status(200).entity(status).build();
+		}
+		else {
+			return Response.status(404).entity(status).build();
+		}
 	
+}
 }
 
 	

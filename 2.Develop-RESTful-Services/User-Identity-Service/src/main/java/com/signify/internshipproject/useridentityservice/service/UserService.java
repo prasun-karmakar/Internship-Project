@@ -2,8 +2,10 @@ package com.signify.internshipproject.useridentityservice.service;
 
 
 
+import javax.ws.rs.core.Response;
+
 import com.signify.internshipproject.useridentityservice.dto.UserDTO;
-import com.signify.internshipproject.useridentityservice.model.Response;
+import com.signify.internshipproject.useridentityservice.model.ResponseMsg;
 import com.signify.internshipproject.useridentityservice.model.UserInfo;
 import com.signify.internshipproject.useridentityservice.model.UserLastlogin;
 import com.signify.internshipproject.useridentityservice.model.UserRegisterInfo;

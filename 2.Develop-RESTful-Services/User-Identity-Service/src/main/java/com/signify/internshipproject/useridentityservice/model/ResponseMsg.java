@@ -1,7 +1,7 @@
 package com.signify.internshipproject.useridentityservice.model;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
-public class Response {
+public class ResponseMsg {
 	private boolean status;
 	private String message;
 
