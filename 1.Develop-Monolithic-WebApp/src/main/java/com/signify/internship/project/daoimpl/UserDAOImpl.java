@@ -197,11 +197,11 @@ public class UserDAOImpl implements UserDAO {
 		Map<Integer, String> results = new HashMap<Integer, String>();
 		try {
 			con = DBManager.getCon();
-			ps = con.prepareStatement("SELECT timezone_id,timezone_name FROM user_time");
+			ps = con.prepareStatement("SELECT timezone_id,name FROM user_time");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Integer column1 = rs.getInt("timezone_id");
-				String column2 = rs.getString("timezone_name");
+				String column2 = rs.getString("name");
 				results.put(column1, column2);
 				userDTO.setResults(results);
 
