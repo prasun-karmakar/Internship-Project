@@ -201,7 +201,7 @@ public class UserDAOImpl implements UserDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Integer column1 = rs.getInt("timezone_id");
-				String column2 = rs.getString("name");
+				String column2 = rs.getString("timezone_name");
 				results.put(column1, column2);
 				userDTO.setResults(results);
 
