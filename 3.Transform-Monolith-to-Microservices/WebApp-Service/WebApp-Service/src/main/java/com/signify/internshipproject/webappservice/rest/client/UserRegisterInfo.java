@@ -49,7 +49,7 @@ public class UserRegisterInfo {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		String objStr="username" + getUsername()+" "+"password: "+getPassword();
+		String objStr="username:" + getUsername()+",password: "+getPassword()+",email:"+email+",mobileno:"+mobileno+",language_id:"+language_id+",timezone_id"+timezone_id;
 		return objStr;
 	}
 

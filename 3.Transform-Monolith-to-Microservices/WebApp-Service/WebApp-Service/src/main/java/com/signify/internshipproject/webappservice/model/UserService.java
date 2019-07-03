@@ -72,15 +72,7 @@ public String getTimezoneData(UserDTO userDTO) {
 }
 
 public Map<Integer, String> getLanguageDropdownValues(UserDTO userDTO) {
-	/*try {
-		UserDAO userDAO =new UserDAOImpl();
-		Map<Integer,String> languagedropdownvalues=userDAO.getLanguageid_name(userDTO);
-		userDTO.setResults(languagedropdownvalues);
-		return languagedropdownvalues;
-	    }
-        catch(Exception e) {
-	System.out.println(e); 
-}*/
+	
     RestClient restClient=new RestClient();
 	
 	return restClient.getLanguageDropdownFromUserIdentity(userDTO);
@@ -98,8 +90,7 @@ public boolean registerUserDetails(UserDTO userDTO) {
 	boolean status=false;
 try {
 	RestClient restClient=new RestClient();
-    restClient.registerconfirmdetails(userDTO) ;
-	status=true;
+    status=restClient.registerconfirmdetails(userDTO) ;
 	}
 	catch(Exception e) {
 		System.out.println(e);
