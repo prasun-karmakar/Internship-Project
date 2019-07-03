@@ -1,18 +1,26 @@
 package com.signify.internshipproject.useridentityservice.service;
 import java.util.ArrayList;
 
+import com.signify.internshipproject.useridentityservice.dao.UserDAO;
 import com.signify.internshipproject.useridentityservice.dto.UserDTO;
+import com.signify.internshipproject.useridentityservice.model.UserInfo;
 import com.signify.internshipproject.useridentityservice.model.UserServiceModel;
 
 public class RestHandler {
 	
-	public  UserDTO getProfileDetail(UserDTO userDTO) {
+	public  UserInfo getProfileDetail(UserDTO userDTO) {
 		
 	try {
 		UserServiceModel userservice=new UserServiceModel();
 		UserDTO profiledetails=userservice.getUserProfileDetail(userDTO);
-		userDTO.setRes(profiledetails);
-	    return profiledetails;	
+		UserInfo userInfo=new UserInfo();
+		userInfo.setUserName(profiledetails.getUsername());
+		userInfo.setEmailId(profiledetails.getEmail());
+		userInfo.setMobileNo(profiledetails.getMobileno());
+		userInfo.setLanguage(profiledetails.getLanguage_name());
+		userInfo.setTimezoneId(Integer.valueOf(profiledetails.getName()));
+		
+	    return userInfo;	
 		
 	}
 	catch(Exception e) {
@@ -82,8 +90,12 @@ public class RestHandler {
 		
 	}
 	
-	public boolean authenticateuserlogin(UserDTO userDTO) {
+	public boolean authenticateuserlogin(UserInfo userInfo) {
 		
+		UserDTO userDTO=new UserDTO();
+		userDTO.setUsername(userInfo.getUserName());
+		userDTO.setPassword(userInfo.getPassword());
+
 		UserServiceModel userservice=new UserServiceModel();
 		boolean result=userservice.authenticateUser(userDTO);
 		if(result) {
@@ -109,6 +121,15 @@ public class RestHandler {
 		}
 		return null;
 		
+	}
+	
+	public UserInfo getLanguageId(UserDTO userDTO) {
+		UserServiceModel userservice=new UserServiceModel();
+		
+		UserInfo userInfo=new UserInfo();
+		int languageId=userservice.getLanguageId(userDTO);
+		userInfo.setLanguageId(languageId);
+		return userInfo;
 	}
 }
 

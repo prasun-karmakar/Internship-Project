@@ -1,10 +1,12 @@
 package com.signify.internshipproject.useridentityservice.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class UserRegisterInfo {
 	
 	public String username;
 	public String password;
-	public String registerconfirmpassword;
 	public String email;
 	public String mobileno;
 	public String timezone_id;
@@ -21,12 +23,6 @@ public class UserRegisterInfo {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getRegisterconfirmpassword() {
-		return registerconfirmpassword;
-	}
-	public void setRegisterconfirmpassword(String registerconfirmpassword) {
-		this.registerconfirmpassword = registerconfirmpassword;
 	}
 	public String getEmail() {
 		return email;

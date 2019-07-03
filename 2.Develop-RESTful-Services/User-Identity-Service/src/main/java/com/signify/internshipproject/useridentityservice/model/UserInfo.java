@@ -1,50 +1,66 @@
 package com.signify.internshipproject.useridentityservice.model;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement (name="person")
+@XmlRootElement
 public class UserInfo {
-	public String username;
-	public String lastlogin;
-	public String name;
-	public String email;
-	public String mobileno;
-	public String language_name;
-	public String getUsername() {
-		return username;
+
+	private String userName;
+	private String password;
+	private String emailId;
+	private String mobileNo;
+	private int languageId;
+	private String language;
+	private int timezoneId;
+	private String lastLogintime;
+	
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public String getLastlogin() {
-		return lastlogin;
+	public String getPassword() {
+		return password;
 	}
-	public void setLastlogin(String lastlogin) {
-		this.lastlogin = lastlogin;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public String getName() {
-		return name;
+	public String getEmailId() {
+		return emailId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
-	public String getEmail() {
-		return email;
+	public String getMobileNo() {
+		return mobileNo;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
 	}
-	public String getMobileno() {
-		return mobileno;
+	public int getLanguageId() {
+		return languageId;
 	}
-	public void setMobileno(String mobileno) {
-		this.mobileno = mobileno;
+	public void setLanguageId(int languageId) {
+		this.languageId = languageId;
 	}
-	public String getLanguage_name() {
-		return language_name;
+	public int getTimezoneId() {
+		return timezoneId;
 	}
-	public void setLanguage_name(String language_name) {
-		this.language_name = language_name;
+	public void setTimezoneId(int timezoneId) {
+		this.timezoneId = timezoneId;
+	}
+	public String getLastLogintime() {
+		return lastLogintime;
+	}
+	public void setLastLogintime(String lastLogintime) {
+		this.lastLogintime = lastLogintime;
+	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 	
 }
-

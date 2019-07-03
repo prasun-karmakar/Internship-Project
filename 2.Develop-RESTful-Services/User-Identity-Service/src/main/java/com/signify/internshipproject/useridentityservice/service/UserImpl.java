@@ -29,16 +29,11 @@ public class UserImpl implements UserService {
 	@Path("/{username}/get")
 	public UserInfo getUserProfile(@PathParam("username") String username) { //myprofile
 		UserDTO userDTO = new UserDTO();
-		RestHandler info=new RestHandler();
+		RestHandler handler=new RestHandler();
 		UserInfo userinfo=new UserInfo();
 		userDTO.setUsername(username);
-		UserDTO res=info.getProfileDetail(userDTO);
-		userinfo.setUsername(res.getUsername());
-		userinfo.setName(res.getName());
-		userinfo.setEmail(res.getEmail());
-		userinfo.setLanguage_name(res.getLanguage_name());
-		userinfo.setMobileno(res.getMobileno());
-		userinfo.setLastlogin(res.getLastlogin());
+		userinfo=handler.getProfileDetail(userDTO);
+		
 		return userinfo;
 	}
 	
@@ -52,16 +47,17 @@ public class UserImpl implements UserService {
 		System.out.println(res);
 		UserInfo userinfo=new UserInfo();
 
-		for(int count=0;count<res.size();count++)
-		{
-		 UserDTO userDTO1=(UserDTO)res.get(count);
-		 userinfo.setUsername(userDTO1.getUsername());
-		 userinfo.setEmail(userDTO1.getEmail());
-		 userinfo.setMobileno(userDTO1.getMobileno());
-		 userinfo.setLanguage_name(userDTO1.getLanguage_name());
-		 userinfo.setName(userDTO1.getName());
-		
-		}
+		/*
+		 * for(int count=0;count<res.size();count++) { UserDTO
+		 * userDTO1=(UserDTO)res.get(count);
+		 * userinfo.setUsername(userDTO1.getUsername());
+		 * userinfo.setEmail(userDTO1.getEmail());
+		 * userinfo.setMobileno(userDTO1.getMobileno());
+		 * userinfo.setLanguage_name(userDTO1.getLanguage_name());
+		 * userinfo.setName(userDTO1.getName());
+		 * 
+		 * }
+		 */
 		return userinfo;
 	
 	}
@@ -72,7 +68,7 @@ public class UserImpl implements UserService {
 	public Response registerUserDetails(UserRegisterInfo userReg) { //Register confirm
 		UserDTO userDTO = new UserDTO();
 	
-		RestHandler info=new RestHandler();
+		RestHandler handler=new RestHandler();
 		userDTO.setUsername(userReg.getUsername());
 		userDTO.setPassword(userReg.getPassword());
 		userDTO.setRegisterconfirmpassword(userReg.getUsername());
@@ -80,9 +76,10 @@ public class UserImpl implements UserService {
 		userDTO.setMobileno(userReg.getMobileno());
 		userDTO.setTimezone_id(userReg.getTimezone_id());
 		userDTO.setLanguage_id(userReg.getLanguage_id());
-		boolean status=info.registerUserDetails(userDTO);
+		boolean status=handler.registerUserDetails(userDTO);
 		System.out.println(status); 
-		return Response.status(200).entity(status).build();
+
+		return Response.status(Response.Status.CREATED.getStatusCode()).build();
 	} 
 	
 	
@@ -122,25 +119,38 @@ public class UserImpl implements UserService {
 	@Path("/{username}/getlastlogin")
 	public UserLastlogin getLastlogintime(@PathParam("username") String username) { //Users lastlogintime
 		UserDTO userDTO = new UserDTO();
-		RestHandler info=new RestHandler();
+		RestHandler handler=new RestHandler();
 		UserLastlogin userlastlogin=new UserLastlogin();
 		userDTO.setUsername(username);
-		info.getLastlogintime(userDTO);
+		handler.getLastlogintime(userDTO);
 		userlastlogin.setLastlogin(userDTO.getZonedDateTime());
 		System.out.println(userlastlogin);
 		return userlastlogin;
+	}
+	
+	@Override
+	@GET
+	@Path("/{username}/language")
+	public UserInfo getLanguageId(@PathParam("username") String username) { //Users lastlogintime
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUsername(username);
+
+		RestHandler handler=new RestHandler();
+		UserInfo userInfo=handler.getLanguageId(userDTO);
+		System.out.println(userInfo.getLanguageId());
+		return userInfo;
 	}
 
 	@Override
 	@POST
     @Path("/authenticateuser")
-	public Response authenticatelogincredentials(UserDTO userDTO) { //Login authentication
+	public Response authenticatelogincredentials(UserInfo userInfo) { //Login authentication
 		
 		
-		RestHandler info=new RestHandler();
-		userDTO.setUsername(userDTO.getUsername());
-		userDTO.setPassword(userDTO.getPassword());
-		boolean status=info.authenticateuserlogin(userDTO);
+		RestHandler handler=new RestHandler();
+		
+		boolean status=handler.authenticateuserlogin(userInfo);
+		
 		System.out.println(status); 
 		if(status) {
 		return Response.status(200).entity(status).build();

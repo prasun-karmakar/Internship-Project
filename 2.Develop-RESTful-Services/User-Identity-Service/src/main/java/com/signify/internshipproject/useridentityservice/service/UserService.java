@@ -5,7 +5,6 @@ package com.signify.internshipproject.useridentityservice.service;
 import javax.ws.rs.core.Response;
 
 import com.signify.internshipproject.useridentityservice.dto.UserDTO;
-import com.signify.internshipproject.useridentityservice.model.ResponseMsg;
 import com.signify.internshipproject.useridentityservice.model.UserInfo;
 import com.signify.internshipproject.useridentityservice.model.UserLastlogin;
 import com.signify.internshipproject.useridentityservice.model.UserRegisterInfo;
@@ -17,8 +16,10 @@ public interface UserService {
 		public Response registerUserDetails(UserRegisterInfo userReg);
 		public Response deletePerson(String username);
 		public Response updateUserDetail(String username,UserRegisterInfo userReg);	
-		public Response authenticatelogincredentials(UserDTO userDTO);
+		public Response authenticatelogincredentials(UserInfo userInfo);
 		public UserLastlogin getLastlogintime(String username);
+		public UserInfo getLanguageId(String username);
+		
 		
 }
 
