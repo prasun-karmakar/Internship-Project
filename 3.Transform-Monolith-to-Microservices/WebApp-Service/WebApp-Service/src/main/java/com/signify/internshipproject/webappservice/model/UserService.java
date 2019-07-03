@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import com.signify.internshipproject.webappservice.dao.UserDAO;
 import com.signify.internshipproject.webappservice.daoimpl.UserDAOImpl;
 import com.signify.internshipproject.webappservice.dto.UserDTO;
+import com.signify.internshipproject.webappservice.rest.client.Email;
 import com.signify.internshipproject.webappservice.rest.client.RestClient;
 
 public class UserService {
@@ -91,6 +92,12 @@ public boolean registerUserDetails(UserDTO userDTO) {
 try {
 	RestClient restClient=new RestClient();
     status=restClient.registerconfirmdetails(userDTO) ;
+    if(status) {
+    	Email email =new Email();
+    	email.setEmailid(userDTO.getEmail());
+    	email.setMsg("Welcome! The registration process was successful. Please login with your credentials.");
+    	restClient.notifyUser(email);
+    }
 	}
 	catch(Exception e) {
 		System.out.println(e);

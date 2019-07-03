@@ -16,6 +16,7 @@ import com.signify.internshipproject.webappservice.rest.domain.UserLastlogin;
 
 public class RestClient {
 	
+	private static final String NOTOFICATION_SERVICE_URI = "http://10.10.21.107:8080/Notification-Service/notify/email";
 	private String SERVER_ADDRESS="http://localhost:8080/User-Identity-Service";
 	private String REST_URI_REGISTER_CONFIRM=SERVER_ADDRESS+"/userinfo/registerconfirm";
 	
@@ -136,6 +137,10 @@ public class JerseyClient {
 
 
 */
+	public boolean notifyUser(Email email) {
+		Response response=client.target(NOTOFICATION_SERVICE_URI).request(MediaType.APPLICATION_JSON).post(Entity.entity(email, MediaType.APPLICATION_JSON));
+		return (response.getStatus()==Response.Status.OK.getStatusCode())?true:false;
+	}
 	
 	public boolean registerconfirmdetails(UserDTO userDTO) {
 		boolean isCreated=false;
