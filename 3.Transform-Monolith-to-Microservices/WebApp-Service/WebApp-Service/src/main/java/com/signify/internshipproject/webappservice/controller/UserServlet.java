@@ -139,7 +139,7 @@ public class UserServlet extends HttpServlet {
 			session.setMaxInactiveInterval(1*60);
 			userService.getLastLoginTime(userDTO);
 			session.setAttribute("Lastlogin", userDTO.getZonedDateTime());
-			userService.getTimezoneData(userDTO);
+			//userService.getTimezoneData(userDTO);
 			Map<Integer,String> timezone_list = userService.getTimezoneDropdownValues(userDTO);
 			Map<Integer,String> language_list = userService.getLanguageDropdownValues(userDTO);
 			int languageid=userService.getLanguageId(userDTO);
