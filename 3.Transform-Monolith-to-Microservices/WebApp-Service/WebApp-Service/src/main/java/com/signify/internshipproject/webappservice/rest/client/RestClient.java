@@ -93,7 +93,7 @@ public class RestClient {
 		UserInfo response=client.target(URI).request(MediaType.APPLICATION_JSON).get(UserInfo.class);
 		String lastLogintime=response.getLastLogintime();
 		System.out.println(lastLogintime);
-		userDTO.setLastlogin(lastLogintime);
+		userDTO.setZonedDateTime(lastLogintime);
 		
 		return status;
 	}
@@ -208,7 +208,7 @@ public class JerseyClient {
 		UserInfo response=client.target(URI).request(MediaType.APPLICATION_JSON).get(UserInfo.class);
 		String timezoneName=response.getTimezoneName();
 		System.out.println(timezoneName);
-		userDTO.setLastlogin(timezoneName);
+		userDTO.setName(timezoneName);
 		
 		return null;
 	}
