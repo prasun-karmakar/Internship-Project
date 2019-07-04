@@ -61,13 +61,7 @@ public boolean getLastLoginTime(UserDTO userDTO) {
 public String getTimezoneData(UserDTO userDTO) {
 	
 	RestClient restClient=new RestClient();
-	restClient.getTimezoneName(userDTO);
-	ZoneId la = ZoneId.of(userDTO.getName());
-	ZonedDateTime time = ZonedDateTime.now(la);
-	DateTimeFormatter aFormatter = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd-HH.mm.ss").parseLenient().appendOffset("+HH:MM", "Z").toFormatter();
-	String lastlogin = time.format(aFormatter);
-	userDTO.setLastlogin(lastlogin);
-	restClient.updateLastLoginTime(userDTO);
+	restClient.updateTimezoneName(userDTO);
 	return "status";
 	
 }

@@ -197,20 +197,16 @@ public class JerseyClient {
 	}
 
 
-	
 
-
-	public String getTimezoneName(UserDTO userDTO) {
-		// TODO Auto-generated method stub
+	public boolean updateTimezoneName(UserDTO userDTO) {
 		//Invoke REST AP
 		String userName=userDTO.getUsername();
 		String URI=SERVER_ADDRESS+"/userinfo/"+userName+"/timezone-name";
-		UserInfo response=client.target(URI).request(MediaType.APPLICATION_JSON).get(UserInfo.class);
-		String timezoneName=response.getTimezoneName();
-		System.out.println(timezoneName);
-		userDTO.setName(timezoneName);
+		Response response=client.target(URI).request(MediaType.APPLICATION_JSON).put(Entity.entity(String.class, MediaType.APPLICATION_JSON));
+		boolean status=(response.getStatus()==Response.Status.OK.getStatusCode())?true:false;
+		System.out.println(status);
 		
-		return null;
+		return status;
 	}
 
 
