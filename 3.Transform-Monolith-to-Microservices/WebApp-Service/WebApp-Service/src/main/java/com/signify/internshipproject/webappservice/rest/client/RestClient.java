@@ -90,8 +90,11 @@ public class RestClient {
 		//get the user name
 		String userName=userDTO.getUsername();
 		String URI=SERVER_ADDRESS+"/userinfo/"+userName+"/getlastlogin";
-		UserLastlogin response=client.target(URI).request(MediaType.APPLICATION_JSON).get(UserLastlogin.class);
-		System.out.println(response.getLastlogin());
+		UserInfo response=client.target(URI).request(MediaType.APPLICATION_JSON).get(UserInfo.class);
+		String lastLogintime=response.getLastLogintime();
+		System.out.println(lastLogintime);
+		userDTO.setLastlogin(lastLogintime);
+		
 		return status;
 	}
 	
@@ -200,6 +203,13 @@ public class JerseyClient {
 	public String getTimezoneName(UserDTO userDTO) {
 		// TODO Auto-generated method stub
 		//Invoke REST AP
+		String userName=userDTO.getUsername();
+		String URI=SERVER_ADDRESS+"/userinfo/"+userName+"/timezone-name";
+		UserInfo response=client.target(URI).request(MediaType.APPLICATION_JSON).get(UserInfo.class);
+		String timezoneName=response.getTimezoneName();
+		System.out.println(timezoneName);
+		userDTO.setLastlogin(timezoneName);
+		
 		return null;
 	}
 
