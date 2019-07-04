@@ -11,6 +11,7 @@ public class UserInfo {
 	private String mobileNo;
 	private int languageId;
 	private String language;
+	private String timezoneName;
 	private int timezoneId;
 	private String lastLogintime;
 	
@@ -61,6 +62,12 @@ public class UserInfo {
 	}
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+	public String getTimezoneName() {
+		return timezoneName;
+	}
+	public void setTimezoneName(String timezoneName) {
+		this.timezoneName = timezoneName;
 	}
 	
 }

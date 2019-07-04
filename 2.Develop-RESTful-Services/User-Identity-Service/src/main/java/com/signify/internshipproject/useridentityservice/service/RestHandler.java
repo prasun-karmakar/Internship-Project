@@ -123,6 +123,12 @@ public class RestHandler {
 		
 	}
 	
+	public String getTimezoneName(UserDTO userDTO) {
+		UserServiceModel userservice=new UserServiceModel();
+		userservice.getTimezoneData(userDTO);
+		return userDTO.getLanguage_name();
+	}
+	
 	public UserInfo getLanguageId(UserDTO userDTO) {
 		UserServiceModel userservice=new UserServiceModel();
 		

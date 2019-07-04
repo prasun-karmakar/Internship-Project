@@ -17,7 +17,7 @@ public interface UserService {
 		public Response deletePerson(String username);
 		public Response updateUserDetail(String username,UserRegisterInfo userReg);	
 		public Response authenticatelogincredentials(UserInfo userInfo);
-		public UserLastlogin getLastlogintime(String username);
+		public UserInfo getLastlogintime(String username);
 		public UserInfo getLanguageId(String username);
 		
 		

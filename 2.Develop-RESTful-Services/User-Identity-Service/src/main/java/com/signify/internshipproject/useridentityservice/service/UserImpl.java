@@ -1,5 +1,6 @@
 package com.signify.internshipproject.useridentityservice.service;
 import java.util.ArrayList;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,7 +13,6 @@ import javax.ws.rs.core.Response;
 
 import com.signify.internshipproject.useridentityservice.dto.UserDTO;
 import com.signify.internshipproject.useridentityservice.model.UserInfo;
-import com.signify.internshipproject.useridentityservice.model.UserLastlogin;
 import com.signify.internshipproject.useridentityservice.model.UserRegisterInfo;
 
 
@@ -117,15 +117,15 @@ public class UserImpl implements UserService {
 	@Override
 	@GET
 	@Path("/{username}/getlastlogin")
-	public UserLastlogin getLastlogintime(@PathParam("username") String username) { //Users lastlogintime
+	public UserInfo getLastlogintime(@PathParam("username") String username) { //Users lastlogintime
 		UserDTO userDTO = new UserDTO();
 		RestHandler handler=new RestHandler();
-		UserLastlogin userlastlogin=new UserLastlogin();
+		UserInfo userInfo=new UserInfo();
 		userDTO.setUsername(username);
 		handler.getLastlogintime(userDTO);
-		userlastlogin.setLastlogin(userDTO.getZonedDateTime());
-		System.out.println(userlastlogin);
-		return userlastlogin;
+		userInfo.setLastLogintime(userDTO.getZonedDateTime());
+		
+		return userInfo;
 	}
 	
 	@Override
@@ -159,7 +159,22 @@ public class UserImpl implements UserService {
 			return Response.status(404).entity(status).build();
 		}
 	
-}
+	}
+	
+	@GET
+	@Path("/{username}/timezone-name")
+	public UserInfo getTimezoneName(@PathParam("username") String userName) {
+		UserDTO userDTO=new UserDTO();
+		userDTO.setUsername(userName);
+		RestHandler handler=new RestHandler();
+		
+		String timezoneName=handler.getTimezoneName(userDTO);
+		UserInfo userInfo=new UserInfo();
+		userInfo.setTimezoneName(timezoneName);
+		
+		return userInfo;
+		
+	}
 }
 
 	
