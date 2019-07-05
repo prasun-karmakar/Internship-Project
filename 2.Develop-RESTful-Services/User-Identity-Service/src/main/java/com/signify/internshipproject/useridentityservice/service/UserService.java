@@ -4,9 +4,7 @@ package com.signify.internshipproject.useridentityservice.service;
 
 import javax.ws.rs.core.Response;
 
-import com.signify.internshipproject.useridentityservice.dto.UserDTO;
 import com.signify.internshipproject.useridentityservice.model.UserInfo;
-import com.signify.internshipproject.useridentityservice.model.UserLastlogin;
 import com.signify.internshipproject.useridentityservice.model.UserRegisterInfo;
 
 public interface UserService {
@@ -19,6 +17,7 @@ public interface UserService {
 		public Response authenticatelogincredentials(UserInfo userInfo);
 		public UserInfo getLastlogintime(String username);
 		public UserInfo getLanguageId(String username);
+		public Response updateTimezoneName(String userName);
 		
 		
 }

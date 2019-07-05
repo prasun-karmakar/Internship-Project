@@ -10,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.signify.internshipproject.useridentityservice.dto.UserDTO;
 import com.signify.internshipproject.useridentityservice.model.UserInfo;
@@ -161,18 +162,23 @@ public class UserImpl implements UserService {
 	
 	}
 	
-	@GET
-	@Path("/{username}/timezone-name")
-	public UserInfo getTimezoneName(@PathParam("username") String userName) {
+	@PUT
+	@Path("/{username}/lastlogin")
+	public Response updateTimezoneName(@PathParam("username") String userName) {
 		UserDTO userDTO=new UserDTO();
 		userDTO.setUsername(userName);
 		RestHandler handler=new RestHandler();
 		
-		String timezoneName=handler.getTimezoneName(userDTO);
-		UserInfo userInfo=new UserInfo();
-		userInfo.setTimezoneName(timezoneName);
+		boolean status=handler.getTimezoneName(userDTO);
 		
-		return userInfo;
+		System.out.println(status); 
+		
+		if(status) {
+		return Response.status(Response.Status.OK.getStatusCode()).entity(status).build();
+		}
+		else {
+			return Response.status(Status.NOT_MODIFIED.getStatusCode()).entity(status).build();
+		}
 		
 	}
 }
