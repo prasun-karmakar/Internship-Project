@@ -61,7 +61,7 @@ public boolean getLastLoginTime(UserDTO userDTO) {
 public String getTimezoneData(UserDTO userDTO) {
 	
 	RestClient restClient=new RestClient();
-	restClient.updateTimezoneName(userDTO);
+	restClient.updateLastlogin(userDTO);
 	return "status";
 	
 }
