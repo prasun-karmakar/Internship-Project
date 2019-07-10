@@ -2,30 +2,31 @@ package com.signify.internshipproject.webappservice.rest.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.signify.internshipproject.webappservice.dto.UserDTO;
 import com.signify.internshipproject.webappservice.rest.domain.UserInfo;
-import com.signify.internshipproject.webappservice.rest.domain.UserLastlogin;
 
 public class RestClient {
 	
 	private static final String NOTOFICATION_SERVICE_URI = "http://10.10.21.107:8080/Notification-Service/notify/email";
-	private String SERVER_ADDRESS="http://10.10.21.106:8080/User-Identity-Service";
-	//private String SERVER_ADDRESS="http://localhost:8080/User-Identity-Service";
+	//private String SERVER_ADDRESS="http://10.10.21.106:8080/User-Identity-Service";
+	private String SERVER_ADDRESS="http://localhost:8080/User-Identity-Service";
 	private String REST_URI_REGISTER_CONFIRM=SERVER_ADDRESS+"/userinfo/registerconfirm";
 	
 	private Client client = ClientBuilder.newClient(); 
 
 	public static void main(String[] args) {
 		UserDTO userDTO=new UserDTO();
-		userDTO.setUsername("User1");
+		userDTO.setUsername("user1");
 		userDTO.setPassword("password");
 		userDTO.setEmail("abc@xyz.com");
 		userDTO.setMobileno("1234567");
@@ -35,7 +36,37 @@ public class RestClient {
 		//new RestClient().getLastlogintime(userDTO);
 		//new RestClient().getDatabaseLanguageId(userDTO);
 		//new RestClient().authenticateUser(userDTO);
-		new RestClient().updateLastlogin(userDTO);
+		//new RestClient().updateLastlogin(userDTO);
+		//new RestClient().updateUserProfileDetail(userDTO);
+		new RestClient().getUserList();
+		//new RestClient().getUserInfo(userDTO);
+	}
+	
+	public void getUserList() {
+		
+		String URI=SERVER_ADDRESS+"/userinfo/getAll";
+		List<UserInfo> userInfoList=client.target(URI).request(MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<UserInfo>>() {});
+		
+		for(UserInfo response:userInfoList) {
+			String userNameResp=response.getUserName();
+			System.out.println(userNameResp);
+			String email=response.getEmailId();
+			System.out.println(email);
+		}
+	}
+
+	public void getUserInfo(UserDTO userDTO) {
+		boolean status=false;
+		//Invoke REST API
+		//get the user name
+		String userName=userDTO.getUsername();
+		String URI=SERVER_ADDRESS+"/userinfo/"+userName+"/getuserinfo";
+		UserInfo response=client.target(URI).request(MediaType.APPLICATION_JSON).get(UserInfo.class);
+		String userNameResp=response.getUserName();
+		System.out.println(userNameResp);
+		String email=response.getEmailId();
+		System.out.println(email);
+		
 	}
 	
    public boolean authenticateUser(UserDTO userDTO) {  //Rest client authenticate
@@ -174,7 +205,16 @@ public class JerseyClient {
 	public boolean updateUserProfileDetail(UserDTO userDTO) {
 		boolean status=false;
 		//Invoke REST AP
-		return status;
+		String userName=userDTO.getUsername();
+		UserInfo userInfo=new UserInfo();
+		userInfo.setEmailId(userDTO.getEmail());
+		userInfo.setLanguageId(Integer.valueOf(userDTO.getLanguage_id()));
+		userInfo.setTimezoneId(Integer.valueOf(userDTO.getTimezone_id()));
+		String URI=SERVER_ADDRESS+"/userinfo/"+userName+"/update";
+		Response response=client.target(URI).request(MediaType.APPLICATION_JSON).put(Entity.entity(userInfo, MediaType.APPLICATION_JSON));
+		
+		return (response.getStatus()==Response.Status.OK.getStatusCode())?true:false;
+		
 	}
 
 
@@ -223,8 +263,34 @@ public class JerseyClient {
 
 	public ArrayList<UserDTO> getAllUserList(UserDTO userDTO) {
 		// TODO Auto-generated method stub
-		ArrayList<UserDTO> userRecords=new ArrayList<>();
-		//UserRecords.add("sindhu","")
+		ArrayList<UserDTO> userRecords=new ArrayList<UserDTO>();
+		
+		String URI=SERVER_ADDRESS+"/userinfo/getAll";
+		List<UserInfo> userInfoList=client.target(URI).request(MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<UserInfo>>() {});
+		
+		for(UserInfo response:userInfoList) {
+			
+			String userNameResp=response.getUserName();
+			System.out.println(userNameResp);
+			String email=response.getEmailId();
+			System.out.println(email);
+			
+			UserDTO userDTOResult=new UserDTO();
+			
+			 userDTOResult.setUsername(response.getUserName());
+
+		     userDTOResult.setEmail(response.getEmailId());
+
+		     userDTOResult.setMobileno(response.getMobileNo());
+
+		     userDTOResult.setName(response.getTimezoneName());
+
+		     userDTOResult.setLanguage_name(response.getLanguage());
+
+		     userRecords.add(userDTOResult);
+
+		     userDTOResult.setUserRec(userRecords);
+		}
 		return userRecords;
 	}
 
