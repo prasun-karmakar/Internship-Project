@@ -1,6 +1,8 @@
 package com.signify.internshipproject.useridentityservice.service;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -24,7 +26,15 @@ import com.signify.internshipproject.useridentityservice.model.UserRegisterInfo;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserImpl implements UserService {
 
-
+	//Example of returning Map from API(Can be used for Timezone and Language Map)
+	@GET
+	@Path("/map") 
+	public Map<Integer,String> getMap(){
+		Map<Integer,String> empMap=new HashMap<Integer, String>();
+		empMap.put(1,"abc");
+		empMap.put(2,"xyz");
+		return empMap;
+	}
 	
 	
 	@Override
