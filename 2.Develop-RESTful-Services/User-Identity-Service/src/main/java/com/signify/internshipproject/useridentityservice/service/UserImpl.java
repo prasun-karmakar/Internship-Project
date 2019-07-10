@@ -1,7 +1,9 @@
 package com.signify.internshipproject.useridentityservice.service;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -27,7 +29,7 @@ public class UserImpl implements UserService {
 	
 	@Override
 	@GET
-	@Path("/{username}/get")
+	@Path("/{username}/getuserinfo")
 	public UserInfo getUserProfile(@PathParam("username") String username) { //myprofile
 		UserDTO userDTO = new UserDTO();
 		RestHandler handler=new RestHandler();
@@ -41,25 +43,27 @@ public class UserImpl implements UserService {
 	@Override
 	@GET
 	@Path("/getAll")
-	public UserInfo getAllRegisteredUsers() {  //getAllregisteredusers
+	public List<UserInfo> getAllRegisteredUsers() {  //getAllregisteredusers
 		UserDTO userDTO = new UserDTO();
 		RestHandler info=new RestHandler();
 		ArrayList<UserDTO> res=info.getRegisteredUsers(userDTO);
 		System.out.println(res);
-		UserInfo userinfo=new UserInfo();
+		List<UserInfo> userInfoList=new ArrayList<UserInfo>();
 
-		/*
-		 * for(int count=0;count<res.size();count++) { UserDTO
-		 * userDTO1=(UserDTO)res.get(count);
-		 * userinfo.setUsername(userDTO1.getUsername());
-		 * userinfo.setEmail(userDTO1.getEmail());
-		 * userinfo.setMobileno(userDTO1.getMobileno());
-		 * userinfo.setLanguage_name(userDTO1.getLanguage_name());
-		 * userinfo.setName(userDTO1.getName());
-		 * 
-		 * }
-		 */
-		return userinfo;
+		
+		for(UserDTO dto:res) { 
+		  UserInfo userInfo=new UserInfo();
+		  userInfo.setUserName(dto.getUsername());
+		  userInfo.setEmailId(dto.getEmail());
+		  userInfo.setMobileNo(dto.getMobileno());
+		  userInfo.setLanguage(dto.getLanguage_name());
+		  userInfo.setTimezoneName(dto.getName());
+		  
+		  userInfoList.add(userInfo);
+		  
+		  }
+		 
+		return userInfoList;
 	
 	}
 	
@@ -85,7 +89,7 @@ public class UserImpl implements UserService {
 	
 	
 	@Override
-	@GET
+	@DELETE
     @Path("/{username}/delete")
 	public Response deletePerson(@PathParam("username") String username) { //DeleteRecords
 		UserDTO userDTO = new UserDTO();
@@ -93,23 +97,22 @@ public class UserImpl implements UserService {
 		userDTO.setUsername(username);
 		boolean status=info.deleteUserDetail(userDTO);
 		System.out.println(status);
-		return Response.status(200).entity(status).build();
+		return Response.status(Status.OK.getStatusCode()).entity(status).build();
 	}
 	
 	@Override
 	@PUT
 	@Path("/{username}/update")
-	public Response updateUserDetail(@PathParam("username") String username,UserRegisterInfo userReg) { //editUserDetails in submission
+	public Response updateUserDetail(@PathParam("username") String username,UserInfo userInfo) { //editUserDetails in submission
 		UserDTO userDTO = new UserDTO();
 		
 		RestHandler info=new RestHandler();
-		userDTO.setUsername(userReg.getUsername());
-		userDTO.setPassword(userReg.getPassword());
-		userDTO.setRegisterconfirmpassword(userReg.getUsername());
-		userDTO.setEmail(userReg.getEmail());
-		userDTO.setMobileno(userReg.getMobileno());
-		userDTO.setTimezone_id(userReg.getTimezone_id());
-		userDTO.setLanguage_id(userReg.getLanguage_id());
+		userDTO.setUsername(userInfo.getUserName());
+		userDTO.setPassword(userInfo.getPassword());
+		userDTO.setEmail(userInfo.getEmailId());
+		userDTO.setMobileno(userInfo.getMobileNo());
+		userDTO.setTimezone_id(String.valueOf(userInfo.getTimezoneId()));
+		userDTO.setLanguage_id(String.valueOf(userInfo.getLanguageId()));
 		boolean status=info.editUserDetails(userDTO);
 		System.out.println(status); 
 		return Response.status(200).entity(status).build();
