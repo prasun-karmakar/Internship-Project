@@ -18,7 +18,8 @@ public class RestHandler {
 		userInfo.setEmailId(profiledetails.getEmail());
 		userInfo.setMobileNo(profiledetails.getMobileno());
 		userInfo.setLanguage(profiledetails.getLanguage_name());
-		userInfo.setTimezoneId(Integer.valueOf(profiledetails.getName()));
+		userInfo.setTimezoneName(profiledetails.getName());
+		userInfo.setLastLogintime(profiledetails.getLastlogin());
 		
 	    return userInfo;	
 		

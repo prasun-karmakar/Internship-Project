@@ -31,6 +31,7 @@ public class UserImpl implements UserService {
 	@GET
 	@Path("/{username}/getuserinfo")
 	public UserInfo getUserProfile(@PathParam("username") String username) { //myprofile
+		System.out.println("Received User Name:"+username);
 		UserDTO userDTO = new UserDTO();
 		RestHandler handler=new RestHandler();
 		UserInfo userinfo=new UserInfo();
