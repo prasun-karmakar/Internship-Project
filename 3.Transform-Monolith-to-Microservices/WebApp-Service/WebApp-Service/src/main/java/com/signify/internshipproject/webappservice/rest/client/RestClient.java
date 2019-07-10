@@ -38,8 +38,26 @@ public class RestClient {
 		//new RestClient().authenticateUser(userDTO);
 		//new RestClient().updateLastlogin(userDTO);
 		//new RestClient().updateUserProfileDetail(userDTO);
-		new RestClient().getUserList();
+		//new RestClient().getUserList();
 		//new RestClient().getUserInfo(userDTO);
+		new RestClient().getValueMapExample();
+	}
+	
+	public void getValueMapExample() {
+		String URI=SERVER_ADDRESS+"/userinfo/map";
+		Map<Integer,String> valueMap=client.target(URI).request(MediaType.APPLICATION_JSON).get().readEntity(new GenericType<Map<Integer,String>>() {});
+		
+		//Temp Map
+		Map<Integer,String> tempMap=new HashMap<Integer, String>();
+		//Traverse using Lambda expressions
+		valueMap.forEach((k,v)->System.out.println("Using Lamda expression: Key="+k+";value="+v));
+		//Storing the value into a Map
+		valueMap.forEach((k,v)->tempMap.put(k,v));
+		tempMap.forEach((k,v)->System.out.println("tempKey="+k+";tempValue="+v));
+		
+		//Traverse using Stream API
+		valueMap.entrySet().stream().forEach(e->System.out.println("Using Stream API:  Key="+e.getKey()+";value="+e.getValue()));
+		
 	}
 	
 	public void getUserList() {
