@@ -22,7 +22,7 @@ public class EmailService {
 	public boolean sendEmail(Email info) {
 			boolean status=false;
 			final String username = "write2sindhumr@gmail.com";
-			final String password = "kavya";
+			final String password = "kavya123";
 			String toAddress=info.getEmailid();
 			String msg=info.getMsg();
 
